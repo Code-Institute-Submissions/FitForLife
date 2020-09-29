@@ -2,6 +2,10 @@
 __pycache__/
 *.py[cod]
 
+# Database files
+
+*.sqlite3
+
 # C extensions
 *.so
 

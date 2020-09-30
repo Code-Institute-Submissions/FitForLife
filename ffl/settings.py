@@ -26,7 +26,7 @@ SECRET_KEY = '@2%e*!m1!n1d!25z8&qq%1z&gp56g4zk#wpddlm))__4cysluo'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com']
+ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com','127.0.0.1']
 
 
 # Application definition

@@ -34,7 +34,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY','@2%e*!m1!n1d!25z8&qq%1z&gp56g4zk#wpddl
 DEBUG = True
 
 #ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com','127.0.0.1']
-ALLOWED_HOSTS = os.environ.get('HEROKU_HOSTNAME')
+if development:
+    ALLOWED_HOSTS = os.environ.get('localhost')
+else:
+    ALLOWED_HOSTS = os.environ.get('HEROKU_HOSTNAME')
 
 # Application definition
 

@@ -16,7 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+
+# include('allauth.urls') provides all the includes we need for user login, password reset etc
 urlpatterns = [
     path('products/', include('products.urls')),
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
+
 ]

@@ -17,6 +17,7 @@ import os
 #If we are building locally operate in development mode
 #other wise turn off development
 development = os.environ.get('DEVELOPMENT',False)
+development = False
 DEBUG=development
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

@@ -13,11 +13,14 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import dj_database_url
 import os
+import logging
+import logging.config
 
 #If we are building locally operate in development mode
 #other wise turn off development
-development = os.environ.get('DEVELOPMENT',False)
-development = False
+development = os.environ.get('DEVELOPMENT',True)
+heroku = True
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG=development
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -31,16 +34,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #SECRET_KEY = '@2%e*!m1!n1d!25z8&qq%1z&gp56g4zk#wpddlm))__4cysluo'
 SECRET_KEY = os.environ.get('SECRET_KEY','@2%e*!m1!n1d!25z8&qq%1z&gp56g4zk#wpddlm))__4cysluo')    
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
 
 #ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com','127.0.0.1']
 if development:
     ALLOWED_HOSTS = os.environ.get('localhost')
 else:
-    ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com','127.0.0.1']
-    #ALLOWED_HOSTS = os.environ.get('HEROKU_HOSTNAME')
-ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com']
+    ALLOWED_HOSTS = ['HEROKU_HOSTNAME']
+
+if heroku:   
+    ALLOWED_HOSTS = os.environ.get('django-ffl-app.herokuapp.com')
+#ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com']
 # Application definition
 # 'allauth', #provides user registration, password reset etc
 # 'allauth.account',
@@ -141,17 +145,17 @@ else:
             'PORT': '5432',
         }
     }
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ffl_database', 
-        'USER': 'djangouser', 
-        'PASSWORD': 'djangouser90',
-        'HOST': '127.0.0.1', 
-        'PORT': '5432',
+if heroku:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'ffl_database', 
+            'USER': 'djangouser', 
+            'PASSWORD': 'djangouser90',
+            'HOST': '127.0.0.1', 
+            'PORT': '5432',
+        }
     }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -194,3 +198,36 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+LOGGING_CONFIG = None
+logging.config.dictConfig({
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'console': {
+            # exact format is not important, this is the minimum information
+            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'console',
+        },
+    },
+    'loggers': {
+    # root logger
+        '': {
+            'level': 'INFO',
+            'handlers': ['console'],
+        },
+    },
+})
+# Get an instance of a logger
+logger = logging.getLogger('django') #__name__ specifies the module name, django is the general purpose logger
+logger.warn('Settings completed: development is   ' + str(development) )
+
+
+
+

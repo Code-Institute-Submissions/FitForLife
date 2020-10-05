@@ -43,7 +43,7 @@ else:
     ALLOWED_HOSTS = ['HEROKU_HOSTNAME']
 
 if heroku:   
-    ALLOWED_HOSTS = os.environ.get('django-ffl-app.herokuapp.com')
+    ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com']
 #ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com']
 # Application definition
 # 'allauth', #provides user registration, password reset etc

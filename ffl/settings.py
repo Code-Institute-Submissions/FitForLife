@@ -16,10 +16,40 @@ import os
 import logging
 import logging.config
 
+
+LOGGING_CONFIG = None
+logging.config.dictConfig({
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'console': {
+            # exact format is not important, this is the minimum information
+            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'console',
+        },
+    },
+    'loggers': {
+    # root logger
+        '': {
+            'level': 'INFO',
+            'handlers': ['console'],
+        },
+    },
+})
+# Get an instance of a logger
+logger = logging.getLogger('django') #__name__ specifies the module name, django is the general purpose logger
+
+
+
 #If we are building locally operate in development mode
 #other wise turn off development
-development = os.environ.get('DEVELOPMENT',True)
-heroku = True
+development = os.environ.get('DEVELOPMENT',False)
+heroku = os.environ.get('HEROKU',False)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG=development
 
@@ -38,9 +68,11 @@ SECRET_KEY = os.environ.get('SECRET_KEY','@2%e*!m1!n1d!25z8&qq%1z&gp56g4zk#wpddl
 
 #ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com','127.0.0.1']
 if development:
-    ALLOWED_HOSTS = os.environ.get('localhost')
+    ALLOWED_HOSTS = ['localhost']
+    logger.warn('using allowed Hosts for localhost: ' + str(ALLOWED_HOSTS) )
 else:
     ALLOWED_HOSTS = ['HEROKU_HOSTNAME']
+    logger.warn('using allowed Hosts for heroku: ' + str(ALLOWED_HOSTS) )
 
 if heroku:   
     ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com']
@@ -134,6 +166,7 @@ if development:
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
+    logger.warn('using Sqlite3 database: ' )
 else:
     DATABASES = {
         'default': {
@@ -147,7 +180,7 @@ else:
     }
 if heroku:
     DATABASES = { 'default': dj_database_url.parse('postgres://bmhukkzcvbrudo:f0efd09b91a12d869dad3cd600e90906bf522e82621b6a4b7a3712c992d8a209@ec2-54-246-115-40.eu-west-1.compute.amazonaws.com:5432/dcr08rj67p5k70') }
-
+    logger.warn('using heroku hosted database ' )
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -191,33 +224,9 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-LOGGING_CONFIG = None
-logging.config.dictConfig({
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'console': {
-            # exact format is not important, this is the minimum information
-            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
-        },
-    },
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'console',
-        },
-    },
-    'loggers': {
-    # root logger
-        '': {
-            'level': 'INFO',
-            'handlers': ['console'],
-        },
-    },
-})
-# Get an instance of a logger
-logger = logging.getLogger('django') #__name__ specifies the module name, django is the general purpose logger
-logger.warn('Settings completed: development is   ' + str(development) )
+
+logger.warn('Settings completed: development : ' + str(development) )
+logger.warn('Settings completed: heroku : ' + str(heroku) )
 
 
 

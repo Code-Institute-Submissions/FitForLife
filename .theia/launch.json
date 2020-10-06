@@ -3,6 +3,21 @@
   // Hover to view descriptions of existing attributes.
   "version": "0.2.0",
   "configurations": [
+        {
+          "name": "Python: Django",
+          "type": "python",
+          "request": "launch",
+          "program": "${workspaceFolder}/manage.py",
+          "console": "integratedTerminal",
+          "args": [
+              "runserver",
+          ],
+          "django": true,
+          "env" : {
+            "DEVELOPMENT": true,
+            "HEROKU": false
+          }
+      },
       {
             "name": "Python: Current File (Integrated Terminal)",
             "type": "python",
@@ -17,5 +32,7 @@
           "request": "test",
           "justMyCode": false
         }
+
   ]
+
 }

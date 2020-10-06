@@ -72,7 +72,7 @@ if development == 'True':
     logger.warn('using allowed Hosts for localhost because we are in development mode: ' + str(ALLOWED_HOSTS) + ' development ' + str(development))
 else:
     ALLOWED_HOSTS = os.environ.get('HEROKU_HOSTNAME')
-    logger.warn('using allowed Hosts for heroku because we are in production mode: ' + str(ALLOWED_HOSTS))
+    logger.warn('using allowed Hosts for heroku because we are in production mode:[' + str(ALLOWED_HOSTS) + ']')
 
 #if heroku:   
 #    ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com']

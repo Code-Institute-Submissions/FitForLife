@@ -48,7 +48,7 @@ logger = logging.getLogger('django') #__name__ specifies the module name, django
 
 #If we are building locally operate in development mode
 #other wise turn off development
-development = os.environ.get('DEVELOPMENT',True)
+development = os.environ.get('DEVELOPMENT',False)
 heroku = os.environ.get('HEROKU',False)
 #heroku = False
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -69,7 +69,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY','@2%e*!m1!n1d!25z8&qq%1z&gp56g4zk#wpddl
 #ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com','127.0.0.1']
 if development:
     ALLOWED_HOSTS = ['localhost']
-    logger.warn('using allowed Hosts for localhost because we are in development mode: ' + str(ALLOWED_HOSTS))
+    logger.warn('using allowed Hosts for localhost because we are in development mode: ' + str(ALLOWED_HOSTS) + ' development ' + str(development))
 else:
     ALLOWED_HOSTS = os.environ.get('HEROKU_HOSTNAME')
     logger.warn('using allowed Hosts for heroku because we are in production mode: ' + str(ALLOWED_HOSTS))

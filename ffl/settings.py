@@ -69,9 +69,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY','@2%e*!m1!n1d!25z8&qq%1z&gp56g4zk#wpddl
 #ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com','127.0.0.1']
 if development:
     ALLOWED_HOSTS = ['localhost']
+    logger.warn('using allowed Hosts for localhost because we are in development mode: ' + str(ALLOWED_HOSTS))
 else:
-    ALLOWED_HOSTS =  os.environ.get('HEROKU_HOSTNAME')
-    logger.warn('using allowed Hosts for heroku: ' + str(ALLOWED_HOSTS))
+    ALLOWED_HOSTS = os.environ.get('HEROKU_HOSTNAME')
+    logger.warn('using allowed Hosts for heroku because we are in production mode: ' + str(ALLOWED_HOSTS))
 
 #if heroku:   
 #    ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com']
@@ -158,14 +159,13 @@ WSGI_APPLICATION = 'ffl.wsgi.application'
 
 #If we are in development mode we use the local database
 if development:
-    # DATABASES = {     'default':  dj_database_url.parse('postgres://bmhukkzcvbrudo:f0efd09b91a12d869dad3cd600e90906bf522e82621b6a4b7a3712c992d8a209@ec2-54-246-115-40.eu-west-1.compute.amazonaws.com:5432/dcr08rj67p5k70') }
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
-    logger.warn('using Sqlite3 database: ' )
+    logger.warn('using Sqlite3 database: ')
 elif heroku:
     DATABASES = { 'default': dj_database_url.parse('postgres://bmhukkzcvbrudo:f0efd09b91a12d869dad3cd600e90906bf522e82621b6a4b7a3712c992d8a209@ec2-54-246-115-40.eu-west-1.compute.amazonaws.com:5432/dcr08rj67p5k70') }
     logger.warn('using heroku hosted database ' )

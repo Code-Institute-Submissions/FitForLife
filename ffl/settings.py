@@ -70,7 +70,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY','@2%e*!m1!n1d!25z8&qq%1z&gp56g4zk#wpddl
 if development:
     ALLOWED_HOSTS = ['localhost']
 else:
-    ALLOWED_HOSTS = ['HEROKU_HOSTNAME']
+    ALLOWED_HOSTS =  os.environ.get('HEROKU_HOSTNAME')
     logger.warn('using allowed Hosts for heroku: ' + str(ALLOWED_HOSTS))
 
 #if heroku:   

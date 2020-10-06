@@ -67,7 +67,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY','@2%e*!m1!n1d!25z8&qq%1z&gp56g4zk#wpddl
 
 
 #ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com','127.0.0.1']
-if development:
+if development == 'True':
     ALLOWED_HOSTS = ['localhost']
     logger.warn('using allowed Hosts for localhost because we are in development mode: ' + str(ALLOWED_HOSTS) + ' development ' + str(development))
 else:
@@ -158,7 +158,7 @@ WSGI_APPLICATION = 'ffl.wsgi.application'
 # }
 
 #If we are in development mode we use the local database
-if development:
+if development == 'True':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -166,7 +166,7 @@ if development:
         }
     }
     logger.warn('using Sqlite3 database: ')
-elif heroku:
+elif heroku == 'True':
     DATABASES = { 'default': dj_database_url.parse('postgres://bmhukkzcvbrudo:f0efd09b91a12d869dad3cd600e90906bf522e82621b6a4b7a3712c992d8a209@ec2-54-246-115-40.eu-west-1.compute.amazonaws.com:5432/dcr08rj67p5k70') }
     logger.warn('using heroku hosted database ' )
 else:

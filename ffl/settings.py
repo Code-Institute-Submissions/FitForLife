@@ -69,7 +69,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY','@2%e*!m1!n1d!25z8&qq%1z&gp56g4zk#wpddl
 
 #ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com','127.0.0.1']
 if development == 'True':
-    ALLOWED_HOSTS = ['127.0.0.1']
+    ALLOWED_HOSTS = ['localhost']
     logger.warn('using allowed Hosts for localhost because we are in development mode: ' + str(ALLOWED_HOSTS) + ' development ' + str(development))
 elif heroku == "True":
     heroku_postgres = "True"
@@ -233,6 +233,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 logger.warn('Settings completed: development : ' + str(development))
 logger.warn('Settings completed: heroku : ' + str(heroku))
 logger.warn('Settings completed: heroku database: ' + str(heroku_postgres))
+logger.warn('Settings completed: heroku database: ' + str(ALLOWED_HOSTS))
 
 
 

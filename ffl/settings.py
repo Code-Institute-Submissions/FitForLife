@@ -43,13 +43,12 @@ logging.config.dictConfig({
 })
 # Get an instance of a logger
 logger = logging.getLogger('django') #__name__ specifies the module name, django is the general purpose logger
+# If we are building locally operate in development mode
+# other wise turn off development
+development = os.environ.get('DEVELOPMENT',False) #we want to run in debug mode
+heroku = os.environ.get('HEROKU',False) # we are deploying on Heroku
+heroku_postgres = os.environ.get('HEROKU_POSTGRES',"True") # Use a Heroku hosted database
 
-
-
-#If we are building locally operate in development mode
-#other wise turn off development
-development = os.environ.get('DEVELOPMENT',False)
-heroku = os.environ.get('HEROKU',False)
 #heroku = False
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG=development
@@ -70,13 +69,15 @@ SECRET_KEY = os.environ.get('SECRET_KEY','@2%e*!m1!n1d!25z8&qq%1z&gp56g4zk#wpddl
 if development == 'True':
     ALLOWED_HOSTS = ['localhost']
     logger.warn('using allowed Hosts for localhost because we are in development mode: ' + str(ALLOWED_HOSTS) + ' development ' + str(development))
-else:
+elif heroku == "True":
+    heroku_postgres = "True"
     ALLOWED_HOSTS = [os.environ.get('HEROKU_HOSTNAME')]
-    logger.warn('using allowed Hosts for heroku because we are in production mode:[' + str(ALLOWED_HOSTS) + ']')
-#ALLOWED_HOSTS = ['localhost','django-ffl-app.herokuapp.com']
-#if heroku:   
-#    ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com']
-#ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com']
+    logger.warn('using allowed Hosts for heroku and heroku database instance because we are in production mode:[' + str(ALLOWED_HOSTS) + ']')
+else:
+    ALLOWED_HOSTS = ['localhost']
+    logger.warn('using allowed Hosts for localhost by default.')
+
+# ALLOWED_HOSTS = ['localhost','django-ffl-app.herokuapp.com']
 # Application definition
 # 'allauth', #provides user registration, password reset etc
 # 'allauth.account',
@@ -99,13 +100,11 @@ INSTALLED_APPS = [
 # allauth requires these for backend authentication
 
 AUTHENTICATION_BACKENDS = [
-   
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
 
     # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
-    
+    'allauth.account.auth_backends.AuthenticationBackend', 
 ]
 
 SITE_ID = 1
@@ -157,8 +156,16 @@ WSGI_APPLICATION = 'ffl.wsgi.application'
 # }
 # }
 
-#If we are in development mode we use the local database
-if development == 'True':
+if heroku_postgres == 'True':
+    logger.warn('heroku_postgres =' + str(heroku_postgres))
+else:
+    logger.warn('else heroku_postgres =' + str(heroku_postgres))
+
+
+if heroku_postgres == 'True':
+    DATABASES = { 'default': dj_database_url.parse('postgres://bmhukkzcvbrudo:f0efd09b91a12d869dad3cd600e90906bf522e82621b6a4b7a3712c992d8a209@ec2-54-246-115-40.eu-west-1.compute.amazonaws.com:5432/dcr08rj67p5k70') }
+    logger.warn('using heroku hosted database ' )
+else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -166,20 +173,16 @@ if development == 'True':
         }
     }
     logger.warn('using Sqlite3 database: ')
-elif heroku == 'True':
-    DATABASES = { 'default': dj_database_url.parse('postgres://bmhukkzcvbrudo:f0efd09b91a12d869dad3cd600e90906bf522e82621b6a4b7a3712c992d8a209@ec2-54-246-115-40.eu-west-1.compute.amazonaws.com:5432/dcr08rj67p5k70') }
-    logger.warn('using heroku hosted database ' )
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'ffl_database', 
-            'USER': 'djangouser', 
-            'PASSWORD': 'djangouser90',
-            'HOST': '127.0.0.1', 
-            'PORT': '5432',
-        }
-    }
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #         'NAME': 'ffl_database', 
+    #         'USER': 'djangouser', 
+    #         'PASSWORD': 'djangouser90',
+    #         'HOST': '127.0.0.1', 
+    #         'PORT': '5432',
+    #     }
+    # }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -225,9 +228,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 
-logger.warn('Settings completed: development : ' + str(development) )
-logger.warn('Settings completed: heroku : ' + str(heroku) )
-
+logger.warn('Settings completed: development : ' + str(development))
+logger.warn('Settings completed: heroku : ' + str(heroku))
+logger.warn('Settings completed: heroku database: ' + str(heroku_postgres))
 
 
 

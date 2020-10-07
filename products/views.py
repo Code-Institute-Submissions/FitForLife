@@ -1,24 +1,7 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.template import loader
-
+from django.shortcuts import render, get_object_or_404
 from .models import Product
-import logging
-
-logger = logging.getLogger(__name__) #name specifies the module name
-
 
 # Create your views here.
-
-def index(request):
-    products_list = Product.objects.order_by('?')[:5] #retrieve last 5 items randomly
-    template = loader.get_template('products/products.html')
-    context = {
-        'products_list': products_list,
-    }
-    logger.debug('Product Views:  ' + str(products_list.count()) )
-    return HttpResponse(template.render(context, request))
-
 
 def all_products(request):
     """ A view to show all products, including sorting and search queries """
@@ -32,3 +15,13 @@ def all_products(request):
     return render(request, 'products/products.html', context)
 
 
+def product_detail(request, product_id):
+    """ A view to show individual product details """
+
+    product = get_object_or_404(Product, pk=product_id)
+
+    context = {
+        'product': product,
+    }
+
+    return render(request, 'products/product_detail.html', context)

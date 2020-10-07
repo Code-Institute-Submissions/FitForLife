@@ -69,7 +69,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY','@2%e*!m1!n1d!25z8&qq%1z&gp56g4zk#wpddl
 
 #ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com','127.0.0.1']
 if development == 'True':
-    ALLOWED_HOSTS = ['localhost']
+    ALLOWED_HOSTS = ['localhost','127.0.0.1']
     logger.warn('using allowed Hosts for localhost because we are in development mode: ' + str(ALLOWED_HOSTS) + ' development ' + str(development))
 elif heroku == "True":
     heroku_postgres = "True"

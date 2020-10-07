@@ -45,8 +45,8 @@ logging.config.dictConfig({
 logger = logging.getLogger('django') #__name__ specifies the module name, django is the general purpose logger
 # If we are building locally operate in development mode
 # other wise turn off development
-development = os.environ.get('DEVELOPMENT',False) #we want to run in debug mode
-heroku = os.environ.get('HEROKU',False) # we are deploying on Heroku
+development = os.environ.get('DEVELOPMENT',"False") #we want to run in debug mode
+heroku = os.environ.get('HEROKU',"False") # we are deploying on Heroku
 heroku_postgres = os.environ.get('HEROKU_POSTGRES',"True") # Use a Heroku hosted database
 
 #heroku = False
@@ -67,15 +67,15 @@ SECRET_KEY = os.environ.get('SECRET_KEY','@2%e*!m1!n1d!25z8&qq%1z&gp56g4zk#wpddl
 
 #ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com','127.0.0.1']
 if development == 'True':
-    ALLOWED_HOSTS = ['localhost']
+    ALLOWED_HOSTS = ['127.0.0.1']
     logger.warn('using allowed Hosts for localhost because we are in development mode: ' + str(ALLOWED_HOSTS) + ' development ' + str(development))
 elif heroku == "True":
     heroku_postgres = "True"
     ALLOWED_HOSTS = [os.environ.get('HEROKU_HOSTNAME')]
     logger.warn('using allowed Hosts for heroku and heroku database instance because we are in production mode:[' + str(ALLOWED_HOSTS) + ']')
 else:
-    ALLOWED_HOSTS = ['localhost']
-    logger.warn('using allowed Hosts for localhost by default.')
+    ALLOWED_HOSTS = ['127.0.0.1']
+    logger.warn('using allowed Hosts: ' + str(ALLOWED_HOSTS))
 
 # ALLOWED_HOSTS = ['localhost','django-ffl-app.herokuapp.com']
 # Application definition

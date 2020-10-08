@@ -51,7 +51,8 @@ heroku_postgres = os.environ.get('HEROKU_POSTGRES',"True") # Use a Heroku hosted
 
 #heroku = False
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG=development
+if development == 'True':
+    DEBUG=True
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 #BASE_DIR = Path(__file__).resolve().parent.parent
@@ -68,16 +69,17 @@ SECRET_KEY = os.environ.get('SECRET_KEY','@2%e*!m1!n1d!25z8&qq%1z&gp56g4zk#wpddl
 
 
 #ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com','127.0.0.1']
-if development == 'True':
-    ALLOWED_HOSTS = ['localhost','127.0.0.1']
-    logger.warn('using allowed Hosts for localhost because we are in development mode: ' + str(ALLOWED_HOSTS) + ' development ' + str(development))
-elif heroku == "True":
+#if development == 'True':
+#    ALLOWED_HOSTS = ['localhost','127.0.0.1']
+#    logger.warn('using allowed Hosts for localhost because we are in development mode: ' + str(ALLOWED_HOSTS) + ' development ' + str(development))
+
+
+if heroku == "True":
     heroku_postgres = "True"
-    ALLOWED_HOSTS = [os.environ.get('HEROKU_HOSTNAME')]
+    ALLOWED_HOSTS = [os.environ.get('HEROKU_HOSTNAME'),'localhost','127.0.0.1']
     logger.warn('using allowed Hosts for heroku and heroku database instance because we are in production mode:[' + str(ALLOWED_HOSTS) + ']')
 else:
-    ALLOWED_HOSTS = ['127.0.0.1']
-    logger.warn('using allowed Hosts: ' + str(ALLOWED_HOSTS))
+    ALLOWED_HOSTS = ['localhost','127.0.0.1']
 
 # ALLOWED_HOSTS = ['localhost','django-ffl-app.herokuapp.com']
 # Application definition
@@ -217,7 +219,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-
+1
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 

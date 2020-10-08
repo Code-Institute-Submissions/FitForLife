@@ -219,7 +219,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-1
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
@@ -232,6 +231,8 @@ logger.warn('Settings completed: development : ' + str(development))
 logger.warn('Settings completed: heroku : ' + str(heroku))
 logger.warn('Settings completed: heroku database: ' + str(heroku_postgres))
 logger.warn('Settings completed: heroku database: ' + str(ALLOWED_HOSTS))
+logger.warn('Settings completed: STATICFILES_DIRS: ' + str(STATICFILES_DIRS))
+logger.warn('Settings completed: MEDIA_ROOT: ' + str(MEDIA_ROOT))
 
 
 

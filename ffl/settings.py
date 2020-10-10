@@ -88,6 +88,7 @@ else:
 # 'allauth.socialaccount', #login via google, facebook etc
 INSTALLED_APPS = [
     'products.apps.ProductsConfig',
+    'plans.apps.PlansConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

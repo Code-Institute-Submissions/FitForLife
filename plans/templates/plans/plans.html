@@ -18,12 +18,24 @@
                 <hr class="w-50 mb-1">
             </div>
         </div>
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="plan-container col-10 offset-1">
                 <div class="row mt-1 mb-2"></div>
                 <div class="row">
                     {% for plan in plans %}
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                    <div class="card ml-2 mb-2" style="width: 18rem;">
+  <img class="card-img-top" src="{{ plan.image.url }}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{ plan.plan_name }}</h5>
+    <p class="card-text">{{ plan.description }}</p>
+    <p class="card-text"><i class="far fa-check-circle"></i>{{ plan.details }}</p>
+    <p class="card-text price-text">€{{ plan.price }}</p>
+  </div>
+  <div class="card-body">
+    <button type="button" class="btn btn-info">Add to Cart</button>
+  </div>
+</div>
+                    <!-- <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
                             <div class="card h-100 border-0">
                                 {% if plan.image %}
                                 <a href="">
@@ -50,7 +62,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->   
                         {% if forloop.counter|divisibleby:1 %}
                             <div class="col-12 d-sm-none mb-5">
                                 <hr>

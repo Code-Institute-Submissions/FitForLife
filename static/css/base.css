@@ -240,6 +240,16 @@ input[name='q']::placeholder {
 	color: #17a2b8; /* text-info */
 }
 
+/* Card - fitness plans */
+.card {
+    background-color: black;
+    color: white;
+}
+
+.price-text {
+    font-size: 20px;
+}
+
 /* Product Form */
 
 .btn-file {

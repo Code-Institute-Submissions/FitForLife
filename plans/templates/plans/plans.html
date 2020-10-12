@@ -65,9 +65,15 @@
                                 {% endif %}
                                 <div class="card-body pb-0">
                                     <p class="mb-0">{{ plan.plan_name }}</p>
-    				    <p class="card-text">{{ plan.description }}</p>
-				    <p class="card-text"><i class="far fa-check-circle"></i>{{ plan.details }}</p>
+    				                <p class="card-text">{{ plan.description }}</p>
+                                    <p class="card-text">
+                                    {% for detail in plan.details_list %}
+                                        <i class="far fa-check-circle"></i>
+                                        {{ detail }}
+                                        <br>
+                                    {% endfor %}
                                 </div>
+
                                 <div class="card-footer bg-white pt-0 border-0 text-left">
                                     <div class="row">
                                         <div class="col">

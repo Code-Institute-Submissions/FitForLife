@@ -89,6 +89,8 @@ else:
 INSTALLED_APPS = [
     'products.apps.ProductsConfig',
     'plans.apps.PlansConfig',
+    'workouts.apps.WorkoutsConfig',
+    'planworkouts.apps.PlanWorkoutsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -99,7 +101,10 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'home',
+    'home',	
+    'cart',
+    'crispy_forms',
+    'storages'	
 ]
 
 MIDDLEWARE = [
@@ -113,6 +118,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'ffl.urls'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 TEMPLATES = [
     {
@@ -128,14 +135,19 @@ TEMPLATES = [
                 'django.template.context_processors.request', # `allauth` needs this from django
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-		'django.template.context_processors.media',
-                                
+                'django.template.context_processors.media',
+                'cart.contexts.cart_contents',
             ],
+	    #required by crispy forms  	
+            'builtins': [
+                'crispy_forms.templatetags.crispy_forms_tags',
+                'crispy_forms.templatetags.crispy_forms_field',
+            ]
         },
     },
 ]
 
-
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -163,27 +175,30 @@ else:
     logger.warn('else heroku_postgres =' + str(heroku_postgres))
 
 
-if heroku_postgres == 'True':
-    DATABASES = { 'default': dj_database_url.parse('postgres://bmhukkzcvbrudo:f0efd09b91a12d869dad3cd600e90906bf522e82621b6a4b7a3712c992d8a209@ec2-54-246-115-40.eu-west-1.compute.amazonaws.com:5432/dcr08rj67p5k70') }
-    logger.warn('using heroku hosted database ' )
-else:
+if 'DATABASE_URL' in os.environ:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
-    logger.warn('using Sqlite3 database: ')
+    logger.warn('using Heroku postresql database: ')
+else:
     # DATABASES = {
     #     'default': {
-    #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #         'NAME': 'ffl_database', 
-    #         'USER': 'djangouser', 
-    #         'PASSWORD': 'djangouser90',
-    #         'HOST': '127.0.0.1', 
-    #         'PORT': '5432',
+    #         'ENGINE': 'django.db.backends.sqlite3',
+    #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     #     }
     # }
+    # logger.warn('using Sqlite3 database: ')
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'ffl_database', 
+            'USER': 'djangouser', 
+            'PASSWORD': 'djangouser90',
+            'HOST': '127.0.0.1', 
+            'PORT': '5432',
+        }
+    }
+    logger.warn('using local postresql database: ')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -226,7 +241,9 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
+# Stripe
+FREE_DELIVERY_THRESHOLD = 50
+STANDARD_DELIVERY_PERCENTAGE = 10
 
 logger.warn('Settings completed: development : ' + str(development))
 logger.warn('Settings completed: heroku : ' + str(heroku))

@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="overlay"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col text-center mt-3">
+                <h2 class="logo-font">Plan workouts</h2>
+                {% for c in current_categories %}
+                    <a class="category-badge text-decoration-none" href="{% url 'planworkouts' %}?category={{ c.name }}">
+                        <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">{{ c.friendly_name }}</span>
+                    </a>
+                {% endfor %}
+                <hr class="w-50 mb-1">
+            </div>
+        </div>
+        <div class="row">
+            <div class="planworkouts-container col-10 offset-1">
+                <div class="row mt-1 mb-2">
+                    <div class="col-12 col-md-6 my-auto order-md-last d-flex justify-content-center justify-content-md-end">
+                        <div class="sort-select-wrapper w-50">
+                            <select id="sort-selector" class="custom-select custom-select-sm rounded-0 border border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %}">
+                                <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
+                                <option value="name_asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>Name (A-Z)</option>
+                                <option value="name_desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Name (Z-A)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-first">
+                        <p class="text-muted mt-3 text-center text-md-left">
+                            {% if search_term or current_categories or current_sorting != 'None_None' %}
+                                <span class="small"><a href="{% url 'planworkouts' %}">Planworkouts Home</a> | </span>
+                            {% endif %}
+                            {{ planworkouts|length }} Planworkouts{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
+                        </p>
+                    </div>
+                </div>
+                <ul class="cards">
+                    {% for planworkouts in planworkouts %}
+                        <li class="cards_item">
+                            <div class="card">
+                            <div class="card_image">
+                                {% if planworkouts.image %}
+                                <a href="{% url 'planworkout_detail' planworkouts.id %}">
+                                    <img class="card-img-top img-fluid" src="{{ planworkouts.image.url }}" alt="{{ planworkouts.planworkouts_name }}">
+                                </a>
+                                {% else %}
+                                <a href="{% url 'planworkout_detail' planworkouts.id %}">
+                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ planworkouts.planworkouts_name }}">
+                                </a>
+                                {% endif %}
+                            </div>
+                            <div class="card_content">
+                                <h2 class="card_title">{{ planworkouts.planworkouts_name }}</h2>
+                                <p class="card_text">{{ planworkouts.description }}</p> 
+                                <p class="card_text">
+                                {% for detail in planworkouts.details_list %}
+                                    <i class="far fa-check-circle"></i>
+                                        {{ detail }}
+                                        <br>
+                                {% endfor %}
+                                </p>
+                                <button class="btn card_btn">Read More</button>
+                            </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+
+               </ul>  
+               
+
+               <div class="btt-button shadow-sm rounded-0 border border-black">
+                <a class="btt-link d-flex h-100">
+                    <i class="fas fa-arrow-up text-black mx-auto my-auto"></i>
+                </a>	
+                </div>
+                          
+               
+            </div>
+        </div>
+    </div>
+    <div class="btt-button shadow-sm rounded-0 border border-black">
+        <a class="btt-link d-flex h-100">
+            <i class="fas fa-arrow-up text-black mx-auto my-auto"></i>
+        </a>	
+    </div>
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <script type="text/javascript">
+		$('.btt-link').click(function(e) {
+			window.scrollTo(0,0)
+		})
+	</script>
+    
+    <script type="text/javascript">
+        $('#sort-selector').change(function() {
+            var selector = $(this);
+            var currentUrl = new URL(window.location);
+
+            var selectedVal = selector.val();
+            if(selectedVal != "reset"){
+                var sort = selectedVal.split("_")[0];
+                var direction = selectedVal.split("_")[1];
+
+                currentUrl.searchParams.set("sort", sort);
+                currentUrl.searchParams.set("direction", direction);
+
+                window.location.replace(currentUrl);
+            } else {
+                currentUrl.searchParams.delete("sort");
+                currentUrl.searchParams.delete("direction");
+
+                window.location.replace(currentUrl);
+            }
+        })
+    </script>
+{% endblock %}

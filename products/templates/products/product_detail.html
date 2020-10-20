@@ -49,7 +49,9 @@
                         </small>
                     {% endif %}
                     <p class="mt-3">{{ product.description }}</p>
-                    <form class="form" action="{% url 'add_to_bag' product.id %}" method="POST">
+                    <!-- We use post method in order to send information to the server -->
+                    <form class="form" action="{% url 'add_to_cart' product.id %}" method="POST">
+                        <!-- For security we use the cross site referencing token -->
                         {% csrf_token %}
                         <div class="form-row">
                             {% with product.has_sizes as s %}
@@ -100,8 +102,10 @@
                                     </span>
                                     <span class="text-uppercase">Keep Shopping</span>
                                 </a>
-                                <input type="submit" class="btn btn-black rounded-0 text-uppercase mt-5" value="Add to Bag">
+                                <input type="submit" class="btn btn-black rounded-0 text-uppercase mt-5" value="Add to Cart">
                             </div>
+                            <!-- We will use this hidden value to tell the server about our current URL
+                                 so that we can reditect back there after adding a product to our cart-->
                             <input type="hidden" name="redirect_url" value="{{ request.path }}">
                             {% endwith %}
                         </div>

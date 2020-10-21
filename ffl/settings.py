@@ -183,11 +183,15 @@ if 'DATABASE_URL' in os.environ:
 else:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'ffl_database', 
+            'USER': 'djangouser', 
+            'PASSWORD': 'djangouser90',
+            'HOST': '127.0.0.1', 
+            'PORT': '5432',
+            }
     }
-    logger.warn('using Sqlite3 database: ')
+    logger.warn('using local database: ')
 
 
 # Password validation
@@ -238,7 +242,7 @@ STANDARD_DELIVERY_PERCENTAGE = 10
 logger.warn('Settings completed: development : ' + str(development))
 logger.warn('Settings completed: heroku : ' + str(heroku))
 logger.warn('Settings completed: heroku database: ' + str(heroku_postgres))
-logger.warn('Settings completed: heroku database: ' + str(ALLOWED_HOSTS))
+logger.warn('Settings completed: allowed hosts: ' + str(ALLOWED_HOSTS))
 logger.warn('Settings completed: STATICFILES_DIRS: ' + str(STATICFILES_DIRS))
 logger.warn('Settings completed: MEDIA_ROOT: ' + str(MEDIA_ROOT))
 

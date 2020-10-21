@@ -45,30 +45,24 @@
                     </div>
                 </div>
                 <ul class="cards">
-                    {% for planworkouts in planworkouts %}
+                    {% for planworkout in planworkouts %}
                         <li class="cards_item">
                             <div class="card">
                             <div class="card_image">
                                 {% if planworkouts.image %}
-                                <a href="{% url 'planworkout_detail' planworkouts.id %}">
-                                    <img class="card-img-top img-fluid" src="{{ planworkouts.image.url }}" alt="{{ planworkouts.planworkouts_name }}">
+                                <a href="{% url 'planworkout_detail' planworkout.id %}">
+                                    <img class="card-img-top img-fluid" src="{{ planworkout.image.url }}" alt="{{ planworkout.plan_id }}">
                                 </a>
                                 {% else %}
-                                <a href="{% url 'planworkout_detail' planworkouts.id %}">
-                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ planworkouts.planworkouts_name }}">
+                                <a href="{% url 'planworkout_detail' planworkout.id %}">
+                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ planworkout.plan_id }}">
                                 </a>
                                 {% endif %}
                             </div>
                             <div class="card_content">
-                                <h2 class="card_title">{{ planworkouts.planworkouts_name }}</h2>
-                                <p class="card_text">{{ planworkouts.description }}</p> 
+                                <h2 class="card_title">{{ planworkout.plan_id }}</h2>
+                                <p class="card_text">{{ planworkout.workout_id }}</p> 
                                 <p class="card_text">
-                                {% for detail in planworkouts.details_list %}
-                                    <i class="far fa-check-circle"></i>
-                                        {{ detail }}
-                                        <br>
-                                {% endfor %}
-                                </p>
                                 <button class="btn card_btn">Read More</button>
                             </div>
                             </div>

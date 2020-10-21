@@ -240,7 +240,7 @@ input[name='q']::placeholder {
 	color: #17a2b8; /* text-info */
 }
 
-
+/* Place new cards for evaluation here */
 
 /* https://codepen.io/mhrkit/pen/GGqdvr */
 .cards {
@@ -305,6 +305,10 @@ input[name='q']::placeholder {
     text-align: center;
   }
 /* Card - fitness plans */
+
+/* End of cards for evaluation */
+
+
 /* .card {
     background-color: #FF7300;
     color: #676767;

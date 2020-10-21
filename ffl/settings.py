@@ -64,7 +64,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY','@2%e*!m1!n1d!25z8&qq%1z&gp56g4zk#wpddlm))__4cysluo')    
+SECRET_KEY = os.environ.get('SECRET_KEY')    
 
 
 
@@ -179,26 +179,16 @@ if 'DATABASE_URL' in os.environ:
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
-    logger.warn('using Heroku postresql database: ')
+    logger.warn('using Heroku postresql database: to $DATABASE_URL ')
 else:
-    # DATABASES = {
-    #     'default': {
-    #         'ENGINE': 'django.db.backends.sqlite3',
-    #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    #     }
-    # }
-    # logger.warn('using Sqlite3 database: ')
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'ffl_database', 
-            'USER': 'djangouser', 
-            'PASSWORD': 'djangouser90',
-            'HOST': '127.0.0.1', 
-            'PORT': '5432',
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
-    logger.warn('using local postresql database: ')
+    logger.warn('using Sqlite3 database: ')
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

@@ -82,10 +82,10 @@
             <p class="card-text">€{{ product.price }}</p>
             </div>
             <div class="text-right">
-               <button class="btn btn-block btn-warning">
-               Add to Cart
-               <i class="lnr lnr-chevron-right pl-2"></i>
-               </button>
+                <button type="button" class="btn btn-block btn-warning"> 
+                    <a href="{% url 'product_detail' product.id %}" style="color:inherit">Add to Cart</a>
+                    <i class="lnr lnr-chevron-right pl-2"></i>
+                </button>
             </div>
          </div>
       </div>

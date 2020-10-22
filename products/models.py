@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # we inherit the base model
 
 

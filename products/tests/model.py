@@ -6,5 +6,5 @@ from .models import Product
 class TestProductModel(TestCase):
 
     def test_product_model(self): 
-        product = Product.objects.create(product_name='Test Product')
-        self.assertEquals(product.product_name,"Test Product")
+        product = Product.object.Create(product_name="Test Product")
+        self.assertEquals("Test Product")

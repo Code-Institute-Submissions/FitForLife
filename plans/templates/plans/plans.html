@@ -44,7 +44,91 @@
                         </p>
                     </div>
                 </div>
-                <ul class="cards">
+                
+            <div class="row">
+            {% for plan in plans %}
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="team-member">
+                        <div class="img-area">
+                                {% if plan.image %}
+                                <a href="{% url 'plan_detail' plan.id %}">
+                                    <img class="card-img-top img-fluid" src="{{ plan.image.url }}" alt="{{ plan.plan_name }}">
+                                </a>
+                                {% else %}
+                                <a href="{% url 'plan_detail' plan.id %}">
+                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ plan.plan_name }}">
+                                </a>
+                                {% endif %}
+                            <div class="social">
+                                <ul class="list-inline">
+                                    <li>
+                                       <h1 class="card_text">€150</h1>
+                                    </li>
+                                    <li>
+                                        <h3 class="card_text"><small>{{ plan.plan_name }}</small></h3>
+                                    </li>
+                                    <li>
+                                       <p class="card_text">
+                                {% for detail in plan.details_list %}
+                                    <i class="far fa-check-circle"></i>
+                                        {{ detail }}
+                                        <br>
+                                {% endfor %}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="img-text">
+                            <h2>{{ plan.plan_name }}</h2>
+                            <p class="card_text">{{ plan.description }}</p>
+                            <a href="#" class="text-muted text-uppercase">Find Out More<i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                </div>
+                {% endfor %}
+            
+         
+    
+<!--  <div class="row">
+  {% for plan in plans %}
+     <div class="col-md-4 col-sm-6 col-xs-12">
+      <div class="card text-center">
+        <div class="card-header text-center border-bottom-0 bg-transparent text-success pt-4">
+          <h5>Fit For Life</h5>
+        </div>
+         <div class="img-area">
+                            <img src="assets/imgs/Barista1.jpg" class="img-responsive" alt="barista1">
+                                {% if plan.image %}
+                                <a href="{% url 'plan_detail' plan.id %}">
+                                    <img class="card-img-top img-fluid" src="{{ plan.image.url }}" alt="{{ plan.plan_name }}">
+                                </a>
+                                {% else %}
+                                <a href="{% url 'plan_detail' plan.id %}">
+                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ plan.plan_name }}">
+                                </a>
+                                {% endif %}
+                            </div>
+        <div class="card-body">
+          <h1>€150</h1>
+          <h3 class="text-muted"><small>{{ plan.plan_name }}</small></h3>
+          <p class="card_text">{{ plan.description }}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+        {% for detail in plan.details_list %}
+          <li class="list-group-item"><i class="far fa-check-circle"></i>{{ detail }}</li>
+        {% endfor %}  
+        </ul>
+        <div class="card-footer border-top-0">
+          <a href="#" class="text-muted text-uppercase">Find Out More<i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  
+</div>
+        <!--    <ul class="cards">
                     {% for plan in plans %}
                         <li class="cards_item">
                             <div class="card">
@@ -81,7 +165,7 @@
                     {% endfor %}
 
                </ul>  
-               
+              
 
                <div class="btt-button shadow-sm rounded-0 border border-black">
                 <a class="btt-link d-flex h-100">
@@ -98,7 +182,7 @@
             <i class="fas fa-arrow-up text-black mx-auto my-auto"></i>
         </a>	
     </div>
-{% endblock %}
+{% endblock %}-->
 
 {% block postloadjs %}
     {{ block.super }}

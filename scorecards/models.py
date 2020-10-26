@@ -18,7 +18,7 @@ from profiles.models import UserProfile
 class Scorecard(models.Model):
     workout_id = models.ForeignKey('workouts.Workout', null=True, blank=True, on_delete=models.SET_NULL)
     plan_id = models.ForeignKey('plans.Plan', null=True, blank=True, on_delete=models.SET_NULL)
-    user_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL,null=True, blank=True,related_name='orders')
+    user_profile_id = models.ForeignKey(UserProfile, on_delete=models.SET_NULL,null=True, blank=True,related_name='scorecards')
     repititions = models.DecimalField(max_digits=6, decimal_places=2,null=True)
     score = models.DecimalField(max_digits=6, decimal_places=2,null=True)
     week_reference = models.DecimalField(max_digits=6, decimal_places=2,null=True)

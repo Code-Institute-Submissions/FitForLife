@@ -93,7 +93,6 @@ INSTALLED_APPS = [
     'workouts.apps.WorkoutsConfig',
     'planworkouts.apps.PlanWorkoutsConfig',
     'scorecards.apps.ScorecardsConfig',
-    'profiles.apps.ProfilesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -106,6 +105,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'home',	
     'cart',
+    'profiles',	
+    'checkout',
     'crispy_forms',
     'storages'	
 ]

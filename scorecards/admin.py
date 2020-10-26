@@ -8,13 +8,13 @@ class ScorecardAdmin(admin.ModelAdmin):
     list_display = (
         'workout_id',
         'plan_id',
-        'user_profile',
+        'user_profile_id',
         'repititions',
         'score',
         'week_reference'
     )
 
-    ordering = ('user_profile',)
+    ordering = ('user_profile_id',)
 
 
 admin.site.register(Scorecard, ScorecardAdmin)

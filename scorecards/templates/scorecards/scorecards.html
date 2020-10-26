@@ -14,9 +14,9 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col text-center mt-3">
-                <h2 class="logo-font">Products</h2>
+                <h2 class="logo-font">Scorecards</h2>
                 {% for c in current_categories %}
-                    <a class="category-badge text-decoration-none" href="{% url 'products' %}?category={{ c.name }}">
+                    <a class="category-badge text-decoration-none" href="{% url 'scorecards' %}?category={{ c.name }}">
                         <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">{{ c.friendly_name }}</span>
                     </a>
                 {% endfor %}
@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="product-container col-10 offset-1">
+            <div class="scorecard-container col-10 offset-1">
                 <div class="row mt-1 mb-2">
                     <div class="col-12 col-md-6 my-auto order-md-last d-flex justify-content-center justify-content-md-end">
                         <div class="sort-select-wrapper w-50">
@@ -44,9 +44,9 @@
                     <div class="col-12 col-md-6 order-md-first">
                         <p class="text-muted mt-3 text-center text-md-left">
                             {% if search_term or current_categories or current_sorting != 'None_None' %}
-                                <span class="small"><a href="{% url 'products' %}">Products Home</a> | </span>
+                                <span class="small"><a href="{% url 'scorecards' %}">Scorecards Home</a> | </span>
                             {% endif %}
-                            {{ products|length }} Products{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
+                            {{ scorecards|length }} Scorecards{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
                         </p>
                     </div>
                 </div>
@@ -54,36 +54,36 @@
                 <!-- This is the start of the main cards display -->
                 <div class="row justify-content-center">
                     
-                    {% for product in products %}
+                    {% for scorecard in scorecards %}
                     <div class="col-lg-4 col-md-6 mb-3">
                         <!-- 12 colums in total, on a small or medium screen 6 columns ( a card) will take up 1/2 the screen
                         12 colums in total, on a large screen it will take 4 columns ( a card) or 1/3 the screen -->
                         <div class="card">
-                            {% if product.image %}
-                            <div class="product-image">
-                                <a href="{% url 'product_detail' product.id %}">
-                                    <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
+                            {% if scorecard.image %}
+                            <div class="scorecard-image">
+                                <a href="{% url 'scorecard_detail' scorecard.id %}">
+                                    <img class="card-img-top img-fluid" src="{{ scorecard.image.url }}" alt="{{ scorecard.name }}">
                                 </a>
                             </div>
                                 {% else %}
-                                <div class="product-image">
-                                    <a href="{% url 'product_detail' product.id %}">
-                                        <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
+                                <div class="scorecard-image">
+                                    <a href="{% url 'scorecard_detail' scorecard.id %}">
+                                        <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ scorecard.name }}">
                                     </a>
                                 </div>
                                 {% endif %}
                                  <!--Card content-->
          <div class="card-body">
             <!--Title-->
-            <h6 class="card-title font-weight-bold mb-2">{{ product.product_name }}</h6>
+            <h6 class="card-title font-weight-bold mb-2">{{ scorecard.scorecard_name }}</h6>
             <!-- //rating -->
             <p class="card-text">20g of protein per bar! Several flavours to choose from</p>
             <div class="text-left">
-            <p class="card-text">€{{ product.price }}</p>
+            <p class="card-text">€{{ scorecard.price }}</p>
             </div>
             <div class="text-right">
                 <button type="button" class="btn btn-block btn-warning"> 
-                    <a href="{% url 'product_detail' product.id %}" style="color:inherit">Add to Cart</a>
+                    <a href="{% url 'scorecard_detail' scorecard.id %}" style="color:inherit">Add to Cart</a>
                     <i class="lnr lnr-chevron-right pl-2"></i>
                 </button>
             </div>

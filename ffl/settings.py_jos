@@ -48,7 +48,6 @@ logger = logging.getLogger('django') #__name__ specifies the module name, django
 development = os.environ.get('DEVELOPMENT',"False") #we want to run in debug mode
 heroku = os.environ.get('HEROKU',"False") # we are deploying on Heroku
 heroku_postgres = os.environ.get('HEROKU_POSTGRES',"True") # Use a Heroku hosted database
-use_test_database=os.environ.get('USE_TEST_DATABASE',"False")
 
 #heroku = False
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -181,14 +180,6 @@ if 'DATABASE_URL' in os.environ:
         'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
     logger.warn('using Heroku postresql database: to $DATABASE_URL ')
-elif use_test_database == "True":
-       DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    } 
-
 else:
     DATABASES = {
         'default': {

@@ -1,4 +1,6 @@
 from django.db import models
+#from plans.models import PlanWorkout
+
 
 # we inherit the base model
 
@@ -14,13 +16,18 @@ class Workout(models.Model):
     image = models.ImageField(null=True, blank=True)
     #The pints associated with an single session of this workout
     points = models.DecimalField(max_digits=6, decimal_places=2,null=True)
+    plans = models.ManyToManyField('plans.Plan', through='planworkouts.Planworkout')
 
     #allows us split the comma seperated instructions into a list
     def details_list(self):
         return self.details.split(',')
+        
 
     def __str__(self):
         return self.workout_name
 
     def get_friendly_name(self):
         return self.friendly_name
+
+    def show_workouts(self, obj):
+        return "\n".join([a.workout_name for a in obj.workouts.all()])

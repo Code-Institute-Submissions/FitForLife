@@ -49,7 +49,7 @@ def all_scorecards(request):
     context = {
         'scorecards': scorecards,
         'search_term': query,
-        'current_sorting': current_sorting,
+        'current_sorting': current_sorting
     }
 
     return render(request, 'scorecards/scorecards.html', context)

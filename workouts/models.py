@@ -29,5 +29,5 @@ class Workout(models.Model):
     def get_friendly_name(self):
         return self.friendly_name
 
-    def show_workouts(self, obj):
-        return "\n".join([a.workout_name for a in obj.workouts.all()])
+    def plans_list(self):
+        return self.plans.all()

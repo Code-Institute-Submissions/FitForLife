@@ -20,7 +20,7 @@ class Workout(models.Model):
 
     #allows us split the comma seperated instructions into a list
     def details_list(self):
-        return self.details.split(',')
+        return self.instructions.split(',')
         
 
     def __str__(self):

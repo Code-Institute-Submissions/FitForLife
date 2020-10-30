@@ -43,6 +43,8 @@
                         {% for workout in plan.workouts_list %}
                             <small class="text-muted">{{ workout.workout_name }}</small>
                             <small class="text-muted">{{ workout.description }}</small>
+                            <small class="text-muted">{{ workout.details_list }}</small>
+                            <small class="text-muted">{{ workout.points }}</small>
                             <div class="image-container my-5">
                                 {% if workout.image %}
                                     <a href="{{ workout.image.url }}" target="_blank">

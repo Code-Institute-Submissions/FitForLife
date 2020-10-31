@@ -33,27 +33,27 @@ def add_to_cart(request, item_id):
                 cart[item_id]['items_by_size'][size] += quantity # If it does we increment the quantity
                 messages.success(request,
                                  (f'Updated size {size.upper()} '
-                                  f'{product.name} quantity to '
+                                  f'{product.product_name} quantity to '
                                   f'{cart[item_id]["items_by_size"][size]}'))
             else:
                 cart[item_id]['items_by_size'][size] = quantity # if it does not exist we initiate a new quantuty
                 messages.success(request,
                                  (f'Added size {size.upper()} '
-                                  f'{product.name} to your cart'))
+                                  f'{product.product_name} to your cart'))
         else: # If it does not exist we will create a new cart_items instance
             cart[item_id] = {'items_by_size': {size: quantity}}
             messages.success(request,
                              (f'Added size {size.upper()} '
-                              f'{product.name} to your cart'))
+                              f'{product.product_name} to your cart'))
     else:
         if item_id in list(cart.keys()):
             cart[item_id] += quantity
             messages.success(request,
-                             (f'Updated {product.name} '
+                             (f'Updated {product.product_name} '
                               f'quantity to {cart[item_id]}'))
         else:
             cart[item_id] = quantity
-            messages.success(request, f'Added {product.name} to your cart')
+            messages.success(request, f'Added {product.product_name} to your cart')
     # We now update the session with the updated cart
     request.session['cart'] = cart
     # And return to the url we came from
@@ -75,7 +75,7 @@ def adjust_cart(request, item_id):
             cart[item_id]['items_by_size'][size] = quantity
             messages.success(request,
                              (f'Updated size {size.upper()} '
-                              f'{product.name} quantity to '
+                              f'{product.product_name} quantity to '
                               f'{cart[item_id]["items_by_size"][size]}'))
         else:
             del cart[item_id]['items_by_size'][size]
@@ -83,17 +83,17 @@ def adjust_cart(request, item_id):
                 cart.pop(item_id)
             messages.success(request,
                              (f'Removed size {size.upper()} '
-                              f'{product.name} from your cart'))
+                              f'{product.product_name} from your cart'))
     else:
         if quantity > 0:
             cart[item_id] = quantity
             messages.success(request,
-                             (f'Updated {product.name} '
+                             (f'Updated {product.product_name} '
                               f'quantity to {cart[item_id]}'))
         else:
             cart.pop(item_id)
             messages.success(request,
-                             (f'Removed {product.name} '
+                             (f'Removed {product.product_name} '
                               f'from your cart'))
 
     request.session['cart'] = cart
@@ -116,10 +116,10 @@ def remove_from_cart(request, item_id):
                 cart.pop(item_id)
             messages.success(request,
                              (f'Removed size {size.upper()} '
-                              f'{product.name} from your cart'))
+                              f'{product.product_name} from your cart'))
         else:
             cart.pop(item_id)
-            messages.success(request, f'Removed {product.name} from your cart')
+            messages.success(request, f'Removed {product.product_name} from your cart')
 
         request.session['cart'] = cart
         return HttpResponse(status=200)

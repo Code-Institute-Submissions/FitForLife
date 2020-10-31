@@ -69,11 +69,11 @@
                                     </li>
                                     <li>
                                        <p class="card_text">
-                                {% for detail in plan.details_list %}
-                                    <i class="far fa-check-circle"></i>
-                                        {{ detail }}
-                                        <br>
-                                {% endfor %}
+                                        {% for detail in plan.details_list %}
+                                            <i class="far fa-check-circle"></i>
+                                                {{ detail }}
+                                                <br>
+                                        {% endfor %}
                                     </li>
                                 </ul>
                             </div>

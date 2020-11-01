@@ -16,6 +16,15 @@ h1, h2, h3, h4, h5, h6 {
 body {
     color: #555;
     font-family: 'Roboto';
+    height: 100%;
+}
+
+ .landing-text {
+     display: table-cell;
+     text-align: center;
+     vertical-align: middle;
+     color: #fff;
+     font-weight: 300;
 }
 
 .plan-backg {

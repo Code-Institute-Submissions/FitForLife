@@ -14,7 +14,7 @@
    <div class="container">
     <div class="row">
         <div class="col-sm-6">
-        <div class="image-container my-5">
+        <div class="image-container my-5 ">
                         {% if plan.image %}
                             <a href="{{ plan.image.url }}" target="_blank">
                                 <img class="card-img-top img-fluid" src="{{ plan.image.url }}" alt="{{ plan.plan_name }}">
@@ -47,17 +47,18 @@
                     <div class="card">
                     {% if workout.image %}
                         <a href="{{ workout.image.url }}" target="_blank">
-                            <img class="card-img-top img-fluid" src="{{ workout.image.url }}" alt="{{ plan.plan_name }}">
+                            <img class="workout-icon" src="{{ workout.image.url }}" alt="{{ plan.plan_name }}">
                         </a>
                         {% else %}
                         <a href="">
-                            <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ plan.plan_name }}">
+                            <img class="workout-icon" src="{{ MEDIA_URL }}noimage.png" alt="{{ plan.plan_name }}">
                         </a>
                     {% endif %}
 
                     <div class="card-body">
                         <h4 class="card-title">{{ workout.workout_name }}</h4>
                                     <small class="text-muted">{{ workout.description }}</small>
+                                    <br>
                                     {% for detail in workout.details_list %}
                                     <i class="far fa-check-circle"></i>
                                         {{ detail }}

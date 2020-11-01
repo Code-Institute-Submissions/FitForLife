@@ -514,6 +514,11 @@ input[name='q']::placeholder {
   background: #fff;
 }
 
+.workout-icon img {
+    width: 25%;
+    border: 1px solid
+  }
+
 .profile-userpic img {
   float: none;
   display:block;

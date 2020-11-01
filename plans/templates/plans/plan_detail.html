@@ -41,10 +41,11 @@
         </div>
     </div>   <!--  Row -->
 
-    <div class="row">
         {% if plan.workouts_list %}  
+          
             {% for workout in plan.workouts_list %}
-                    <div class="card">
+            <div class="row mb-1">
+            <div class="col-sm-6 plan-border">
                     {% if workout.image %}
                         <a href="{{ workout.image.url }}" target="_blank">
                             <img class="workout-icon" src="{{ workout.image.url }}" alt="{{ plan.plan_name }}">
@@ -54,8 +55,8 @@
                             <img class="workout-icon" src="{{ MEDIA_URL }}noimage.png" alt="{{ plan.plan_name }}">
                         </a>
                     {% endif %}
-
-                    <div class="card-body">
+            </div>
+                    <div class="col-sm-6 plan-border plan-backg">
                         <h4 class="card-title">{{ workout.workout_name }}</h4>
                                     <small class="text-muted">{{ workout.description }}</small>
                                     <br>

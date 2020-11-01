@@ -1,16 +1,34 @@
 /*!
  * base.css for fit for life
  */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto&display=swap');
+
 html {
     height: 100%;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Bebas Neue'
+}
+
 body {
-    /*background: url('/media/homepageimage.jpg') no-repeat center center fixed;*/
-    background-size: cover;
-    height: calc(100vh - 164px);
     color: #555;
-    font-family: 'Lato';
+    font-family: 'Roboto';
+}
+
+.plan-backg {
+    background-color: 	rgb(255,140,0, 0.75);
+}
+
+ .bg-img {
+     background: url('/media/homepageimage.jpg') no-repeat center center fixed;
+     display: table;
+     height: 100%;
+     position: relative;
+     width: 100%;
+     background-size: cover;
 }
 
 /* from Bulma */
@@ -39,6 +57,10 @@ body {
 .btn-black {
     background: black;
     color: white;
+}
+
+.plan-border {
+    border: 2px solid black;
 }
 
 .btn-outline-black {

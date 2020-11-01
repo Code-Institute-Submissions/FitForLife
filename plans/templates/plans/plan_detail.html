@@ -48,11 +48,11 @@
             <div class="col-sm-6 plan-border">
                     {% if workout.image %}
                         <a href="{{ workout.image.url }}" target="_blank">
-                            <img class="workout-icon" src="{{ workout.image.url }}" alt="{{ plan.plan_name }}">
+                            <img class="workout-icon center" src="{{ workout.image.url }}" alt="{{ plan.plan_name }}">
                         </a>
                         {% else %}
                         <a href="">
-                            <img class="workout-icon" src="{{ MEDIA_URL }}noimage.png" alt="{{ plan.plan_name }}">
+                            <img class="workout-icon center" src="{{ MEDIA_URL }}noimage.png" alt="{{ plan.plan_name }}">
                         </a>
                     {% endif %}
             </div>

@@ -60,3 +60,13 @@ docs/_build/
 
 # PyBuilder
 target/
+
+#shell scripts
+shell_scripts/
+clean.sh
+creat_app.sh
+migrate.sh
+remove_app.sh
+run.sh
+testall.sh
+environment.sh

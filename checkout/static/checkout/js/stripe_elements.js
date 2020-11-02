@@ -6,7 +6,7 @@
     https://stripe.com/docs/stripe-js
 */
 
-var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
+var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1); //we slice off the quotation marks on either end
 var clientSecret = $('#id_client_secret').text().slice(1, -1);
 var stripe = Stripe(stripePublicKey);
 var elements = stripe.elements();
@@ -47,6 +47,7 @@ card.addEventListener('change', function (event) {
 // Handle form submit
 var form = document.getElementById('payment-form');
 
+//check for error on changes to the card
 form.addEventListener('submit', function(ev) {
     ev.preventDefault();
     card.update({ 'disabled': true});
@@ -94,6 +95,7 @@ form.addEventListener('submit', function(ev) {
                 }
             },
         }).then(function(result) {
+	    //Display errors on the checkout page
             if (result.error) {
                 var errorDiv = document.getElementById('card-errors');
                 var html = `

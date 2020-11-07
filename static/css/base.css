@@ -42,6 +42,25 @@ body {
      background-size: cover;
 }
 
+.plans {
+    background: #232323;
+    display: table;
+     height: 60%;
+     position: relative;
+     width: 100%;
+     background-size: cover;
+ }
+
+.plans-bg {
+    background: #232323;
+}
+
+ .plans-header-text{
+     color: #ff914d;
+     font-size: 100px!important;
+ }
+
+
 .center {
   display: block;
   margin-left: auto;

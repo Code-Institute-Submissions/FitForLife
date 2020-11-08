@@ -42,6 +42,16 @@ body {
      background-size: cover;
 }
 
+.card-deck {
+  display:flex;
+  flex-wrap: wrap;
+}
+
+.plan-card {
+     height:9
+     0vh;
+}
+
 .plans {
     background: #232323;
     display: table;
@@ -66,6 +76,13 @@ body {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+}
+
+.container {
+  width: 100%;/*whatever size you want your container*/
+  display: flex; /*Make sure to call this on your container*/
+  align-items: stretch; /*stretches all cards same height*/
+  justify-content: space-around; /*some space between cards*/
 }
 
 /* About Us */
@@ -540,7 +557,7 @@ input[name='q']::placeholder {
      padding-top: 5%;
 }
  .team-member {
-     background-color: #000;
+     background-color: #232323;
      margin-bottom: 10px;
 }
  .team-member:hover .social {

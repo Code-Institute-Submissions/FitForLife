@@ -92,6 +92,7 @@ INSTALLED_APPS = [
     'plans.apps.PlansConfig',
     'workouts.apps.WorkoutsConfig',
     'planworkouts.apps.PlanWorkoutsConfig',
+    'about.apps.AboutConfig',
     'scorecards.apps.ScorecardsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -274,9 +275,9 @@ if 'DEVELOPMENT' in os.environ:
     DEFAULT_FROM_EMAIL = 'boutiqueado@example.com'
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_USE_TLS = False#was True
-    EMAIL_USE_SSL = True # was blank
-    EMAIL_PORT = 465  #was 587
+    EMAIL_USE_TLS = True#was True
+    EMAIL_USE_SSL = False # was blank
+    EMAIL_PORT = 587  #was 587
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')

@@ -62,12 +62,19 @@ body {
  }
 
 .plans-bg {
-    background: #232323;
+    background: url('/media/profilesquare.jpg') no-repeat center center fixed;
+    height: 100px;
 }
 
  .plans-header-text{
      color: #ff914d;
      font-size: 100px!important;
+ }
+
+ .details {
+     color: #ff914d;
+     background: #232323;
+     margin-left: 10px;
  }
 
 

@@ -1,17 +1,16 @@
 from django.shortcuts import render
-
-# Create your views here.
-
+import logging
+import logging.config
 from .models import About
-
-
-# Create your views here.
 
 
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from .forms import ContactForm
+
+# Get an instance of a logger
+logger = logging.getLogger('django') #__name__ specifies the module name, django is the general purpose logger
 
 def contactView(request):
     if request.method == 'GET':
@@ -46,11 +45,14 @@ def about(request):
             from_email = form.cleaned_data['from_email']
             message = form.cleaned_data['message']
             try:
-                send_mail(subject, message, from_email, ['osullivanccuserjade@gmail.com'],fail_silently=False)
+                messages_sent = send_mail(subject, message, from_email, ['osullivanccuserjade@gmail.com'],fail_silently=False)
+                logger.warn('sent  ' + str(messages_sent) + ' emails')
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
                 
             return redirect('success')
+        else:
+            logger.warn('Invalid form  ')   
 
     context = {
         'abouts': abouts,

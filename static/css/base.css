@@ -48,8 +48,7 @@ body {
 }
 
 .plan-card {
-     height:9
-     0vh;
+     height:90vh;
 }
 
 .plans {
@@ -62,10 +61,13 @@ body {
  }
 
 .plans-bg {
-    background: url('/media/profilesquare.jpg') no-repeat center center fixed;
+    background: #232323;
     height: 100px;
 }
 
+.profile-pic {
+   background: url('/media/profilesquare.jpg') no-repeat center center fixed;
+}
  .plans-header-text{
      color: #ff914d;
      font-size: 100px!important;
@@ -75,6 +77,12 @@ body {
      color: #ff914d;
      background: #232323;
      margin-left: 10px;
+     border-radius: 5px;
+ }
+
+ .details:hover {
+     opacity: 1;	
+	border: 4px solid #ff914d;
  }
 
 

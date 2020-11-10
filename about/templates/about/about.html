@@ -10,93 +10,110 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-<h1>FIT FOR LIFE</h1>
-</div>
-
-    <div class="overlay"></div>
+<section class="section-about">
+		<div class="container">
+			<div class="row justify-content-center text-center">
+				<div class="col-12">
+					<div class="header-section">
+						<h2 class="title">About <span>Fit For Life</span></h2>
+						<p class="description">It's time to get to know who we are, what we do and why we do it!</p>
+					</div>
+				</div>
+			</div>
+        </div>
+        <!--<div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <h2 class="my-2 center">Our Story</h2>
+                        <img class="rounded-circle z-depth-2" alt="100x100" src="/media/who_orla.jpg"
+                            data-holder-rendered="true">
+                </div>
+            </div>    
+        </div>      -->  
+        <div class="container">
+			<div class="row justify-content-center">
+				<!-- Start Single Service -->
+				<div class="col-md-6 col-lg-4">
+					<div class="single-service">
+						<div class="part-1">
+							<i class="fas fa-user-circle center"></i>
+							<h2 class="center">WHO</h3>
+                            <p>Fit For Life founder Orla was unsatisfied working in a 9-5 office job when she decided to pursue her passion and follow her dream of becoming a personal trainer.
+                            </p>
+						</div>
+					</div>
+				</div>
+				<!-- / End Single Service -->
+				<!-- Start Single Service -->
+				<div class="col-md-6 col-lg-4">
+					<div class="single-service">
+						<div class="part-1">
+							<i class="far fa-question-circle"></i>
+							<h2>WHY</h2>
+                            <p>While studying the course she gained a keen interest in nutrition and the benefits of a high protein diet. She thought there was a gap in the market for high protein snacks.</p>
+						</div>
+					</div>
+				</div>
+				<!-- / End Single Service -->
+				<!-- Start Single Service -->
+				<div class="col-md-6 col-lg-4">
+					<div class="single-service">
+						<div class="part-1">
+							<i class="far fa-handshake"></i>
+							<h2>HOW</h2>
+                            <p>Orla worked with a range of qualified professionals to create bars, drinks and supplements that not only taste great but provide a high source of protein and nutrients.</p>
+						</div>
+					</div>
+				</div>
+				<!-- / End Single Service -->
+			</div>
+		</div>
+	</section>
     <div class="container-fluid">
+    <div class="contact-section">
         <div class="row">
-            <div class="col text-center mt-3">
-                <h2 class="logo-font">About</h2>
-                {% for c in current_categories %}
-                    <a class="category-badge text-decoration-none" href="{% url 'abouts' %}?category={{ c.name }}">
-                        <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">{{ c.friendly_name }}</span>
-                    </a>
-                {% endfor %}
-                <hr class="w-50 mb-1">
+            <div class="col-12 text-center">
+						<h1 class="title">get in touch</h1>            
             </div>
-        </div>
-        <div class="row">
-            <div class="about-container col-10 offset-1">
-                <div class="row mt-1 mb-2">
-                    <div class="col-12 col-md-6 my-auto order-md-last d-flex justify-content-center justify-content-md-end">
-                        <h1>Contact Us</h1>
-                        <form method="post">
-                            {% csrf_token %}
-                            {{ form.as_p }}
-                            <div class="form-actions">
-                              <button type="submit">Send</button>
-                            </div>
-                        </form>
 
-                </div>
-                
-                <!-- This is the start of the main cards display -->
-                <div class="row justify-content-center">
-                    {% for about in abouts %}
-                        {% ifequal about.category|stringformat:'s' 'plans'|stringformat:'s' %}
-                                     <div class="col-lg-6 col-md-6 mb-3">
-                                {% else %}
-                                    <div class="col-lg-3 col-md-6 mb-3">
-                                {% endifequal %}
-                        
-                            <!-- 12 colums in total, on a small or medium screen 6 columns ( a card) will take up 1/2 the screen
-                            12 colums in total, on a large screen it will take 4 columns ( a card) or 1/3 the screen -->
-                            <div class="card">
-                                
-                                {% if about.image %}
-                                    <div class="about-image">
-                                        <a href="{% url 'about_detail' about.id %}">
-                                            <img class="card-img-top img-fluid" src="{{ about.image.url }}" alt="{{ about.name }}">
-                                        </a>
-                                    </div>
-                                {% else %}
-                                    <div class="about-image">
-                                        <a href="{% url 'about_detail' about.id %}">
-                                            <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ about.name }}">
-                                        </a>
-                                    </div>
-                                {% endif %}
-                                <!--Card content-->
-                                <div class="card-body">
-                                    <!--Title-->
-                                    <h6 class="card-title font-weight-bold mb-2">{{ about.about_name }}</h6>
-                                    <p class="card-text">{{ about.snippet }}</p>
-                                    <div class="text-left">
-                                        <p class="card-text">€{{ about.price }}</p>
-                                    </div>
-                                    <div class="text-right">
-                                        <button type="button" class="btn btn-block btn-warning"> 
-                                                <a href="{% url 'about_detail' about.id %}" style="color:inherit">Add to Cart</a>
-                                                <i class="lnr lnr-chevron-right pl-2"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/.Card-->
-                        </div>                         
-                    {% endfor %}
-                    <!-- This is the end of the main cards display -->
-                </div>
-            </div>
         </div>
     </div>
-    <div class="btt-button shadow-sm rounded-0 border border-black">
-        <a class="btt-link d-flex h-100">
-            <i class="fas fa-arrow-up text-black mx-auto my-auto"></i>
-        </a>	
+        <div class="container">
+        <form role="form " action="" method="">
+
+    <div class="form-group">
+      <label for="name"></label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" required>
+      <!--placing icon using a span element-->
+      <span class="icon fa fa-user fa-lg"></span>
     </div>
+
+    <div class="form-group">
+      <label for="email"></label>
+      <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" required>
+      <span class="icon fa fa-envelope fa-lg"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="sub"></label>
+      <input type="text" class="form-control" id="sub" name="sub" placeholder="Subject" required>
+      <span class="icon fa fa-pencil fa-lg"></span>
+    </div>
+
+    <div class="form-group">
+      <textarea rows="5" cols="30" id="msg" name="msg" placeholder="Message" style="width:100%"></textarea>
+      <span class="icon-textarea fa fa-paper-plane fa-lg "></span>
+    </div>
+
+    <div class="col-sm-12 text-center">
+      <button type="submit" class="btn btn-default">Submit</button>
+    </div>
+  </form>
+        </div>
+    </div>    
+    </div>
+
+
 {% endblock %}
 
 {% block postloadjs %}

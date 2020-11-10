@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.db.models.functions import Lower
 
 from .models import Plan
+from profiles.models import UserProfile
 from .forms import PlanForm
 
 # Create your views here.
@@ -14,6 +15,9 @@ def all_plans(request):
     """ A view to show all plans, including sorting and search queries """
 
     plans = Plan.objects.all()
+    if request.user.is_authenticated:
+        profile = UserProfile.objects.get(user=request.user)
+
     query = None
 
     sort = None
@@ -49,6 +53,7 @@ def all_plans(request):
         'plans': plans,
         'search_term': query,
         'current_sorting': current_sorting,
+        'profile' : profile,
     }
 
     return render(request, 'plans/plans.html', context)

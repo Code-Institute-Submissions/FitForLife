@@ -106,7 +106,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'home',	
     'cart',
-    'profiles',	
+    'profiles.apps.ProfilesConfig',	
     'checkout',
     'crispy_forms',
     'storages'	

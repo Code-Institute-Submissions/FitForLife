@@ -14,22 +14,20 @@
                 Products
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="all-products-link">
+                <a href="{% url 'products' %}" class="dropdown-item">All Products</a>
                 <a href="{% url 'products' %}?category=drinks" class="dropdown-item">Drinks</a>
                 <a href="{% url 'products' %}?category=bars_snacks" class="dropdown-item ">Bars and Snacks</a>
                 <a href="{% url 'products' %}?category=gym_equipment" class="dropdown-item ">Gym Equipment</a>
                 <a href="{% url 'products' %}?category=plans" class="dropdown-item ">Plans</a>
                 <a href="{% url 'products' %}?category=supplements" class="dropdown-item ">Supplements</a>
-                <a href="{% url 'products' %}" class="dropdown-item">All Products</a>
+
             </div>
         </li>
 
         <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="#" id="plans-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'plans' %}?category=weight_loss,fitness,muscle_building" id="plans-link"  aria-haspopup="true" aria-expanded="false">
                 Plans
             </a>
-            <div class="dropdown-menu border-0" aria-labelledby="plans-link">
-                <a href="{% url 'plans' %}?category=weight_loss,fitness,muscle_building" class="dropdown-item">All Plans</a>
-            </div>
         </li>
 
 

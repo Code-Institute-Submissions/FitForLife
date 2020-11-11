@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import logging
 import logging.config
-from .models import About
+#from .models import About
 from django.contrib import messages
 
 
@@ -28,19 +28,21 @@ def about(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             subject = form.cleaned_data['subject']
+            to_email = ['osullivanccuserjade@gmail.com']
             from_email = form.cleaned_data['email']
             message = form.cleaned_data['message']
             name = form.cleaned_data['name']
+            message_body = message + ' from ' +  str(from_email)
             try:
-                messages_sent = send_mail(subject, message, from_email, ['osullivanccuserjade@gmail.com'],fail_silently=False)
-                logger.warn(str(name) + ' sent  ' + str(messages_sent) + ' emails')
+                messages_sent = send_mail(subject, message_body, from_email,to_email ,fail_silently=False)
+                logger.warn(str(name) + ' sent ' + str(messages_sent) + ' emails to ' + str(to_email) + ' from  '  + str(from_email) )
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
 
             context = {
                     'form':form,
                     }    
-            messages.success(request, 'Email Sent!')
+            messages.success(request, 'Your Email has been sent!')
             return render(request, 'about/about.html', context)    
             #return redirect('success')
         else:

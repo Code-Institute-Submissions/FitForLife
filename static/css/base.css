@@ -13,15 +13,13 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Bebas Neue'
 }
 
-
-
 body {
     color: #555;
     font-family: 'Roboto';
     height: 100%;
 }
 
- .landing-text {
+.landing-text {
      display: table-cell;
      text-align: center;
      vertical-align: middle;
@@ -31,6 +29,10 @@ body {
 
 .plan-backg {
     background-color: 	rgb(255,140,0, 0.75);
+}
+
+.profile-bg {
+   background-color: 	rgba(175, 164, 151, 0.75); 
 }
 
  .bg-img {
@@ -216,6 +218,10 @@ body {
   border-color: transparent;
   background-color: #ff914d;
   border-radius: 0px;
+}
+
+.btn-product:hover {
+    background-color: #ff914d;
 }
 
 .container .btn-default {

@@ -14,23 +14,26 @@
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid">
+<div class="container-fluid profile-bg">
         <div class="row justify-content-center">
             <div class="col-12 text-center">
                 <h1>My Info  <i class="far fa-user-circle"></i></h1>
             </div>
-            <div class="col-lg-3 col-md-6 mb-3 details">
+            <div class="col-lg-4 col-md-6 mb-3 details mt-2">
                 <h3>My Details</h3>
                 <h6>Name:</h6>
                 <h6>Username:</h6>
                 <h6>DOB:</h6>
             </div>
-            <div class="col-lg-3 col-md-6 mb-3 details">
+            <div class="col-lg-4 col-md-6 mb-3 details mt-2">
                 <h3>My Membership</h3>
                 <h6>Membership Plan:</h6>
                 <h6>Time Remaining:</h6>
             </div>
-            <div class="col-lg-3 col-md-6 mb-3 details">
+         <!--  --> 
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-8 details mt-2">
                  <h6>Default Delivery Information</h6>
                 <form class="mt-3" action="{% url 'profile' %}" method="POST" id="profile-update-form">
                     {% csrf_token %}

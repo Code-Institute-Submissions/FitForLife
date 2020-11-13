@@ -82,6 +82,7 @@
                             <h2>{{ plan.plan_name }}</h2>
                             <p class="card_text">{{ plan.description }}</p>
                             {% if profile.is_member %}
+                                <a href="{% url 'plan_detail' plan.id %}" class="text-muted text-uppercase">See Workouts<i class="fas fa-arrow-right"></i></a> 
                             {% else %}
                                 <a href="{% url 'products' %}?category=plans" class="text-muted text-uppercase">Become a Member<i class="fas fa-arrow-right"></i></a>                                
                             {% endif %}

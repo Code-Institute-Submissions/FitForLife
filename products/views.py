@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.db.models.functions import Lower
+from django.core.paginator import Paginator 
 
 from .models import Product, Category
 from .forms import ProductForm
@@ -13,11 +14,13 @@ from .forms import ProductForm
 def all_products(request):
     """ A view to show all products, including sorting and search queries """
 
-    products = Product.objects.order_by('category')
+    all_products = Product.objects.order_by('category')
     query = None
     categories = None
     sort = None
     direction = None
+    filtered_products = all_products
+
 
     if request.GET:
         if 'sort' in request.GET:
@@ -25,18 +28,18 @@ def all_products(request):
             sort = sortkey
             if sortkey == 'product_name':
                 sortkey = 'lower_name'
-                products = products.annotate(lower_name=Lower('product_name'))
+                filtered_products = all_products.annotate(lower_name=Lower('product_name'))
             if sortkey == 'category':
                 sortkey = 'category__name'
             if 'direction' in request.GET:
                 direction = request.GET['direction']
                 if direction == 'desc':
                     sortkey = f'-{sortkey}'
-            products = products.order_by(sortkey)
+            filtered_products = all_products.order_by(sortkey)
 
         if 'category' in request.GET:
             categories = request.GET['category'].split(',')
-            products = products.filter(category__name__in=categories)
+            filtered_products = all_products.filter(category__name__in=categories)
             categories = Category.objects.filter(name__in=categories)
 
         if 'q' in request.GET:
@@ -47,15 +50,21 @@ def all_products(request):
                 return redirect(reverse('products'))
 
             queries = Q(product_name__icontains=query) | Q(description__icontains=query)
-            products = products.filter(queries)
+            filtered_products = all_products.filter(queries)
 
     current_sorting = f'{sort}_{direction}'
 
+
+
+    product_paginator = Paginator(filtered_products, 8)
+    page_num = request.GET.get('page')
+    products = product_paginator.get_page(page_num)
     context = {
         'products': products,
         'search_term': query,
         'current_categories': categories,
         'current_sorting': current_sorting,
+        'count' : product_paginator.count,
     }
 
     return render(request, 'products/products.html', context)

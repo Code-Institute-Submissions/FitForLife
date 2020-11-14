@@ -19,31 +19,31 @@ def add_to_cart(request, item_id):
     quantity = int(request.POST.get('quantity'))
     # The redirect_url is where we came from, we will use this to return to the current page once the user has added items
     redirect_url = request.POST.get('redirect_url')
-    size = None
-    if 'product_size' in request.POST:
-        size = request.POST['product_size']
+    product_name = None
+    if 'product_product_name' in request.POST:
+        product_name = request.POST['product_product_name']
     # We get the cart variable if it already exists in the session
     # If it exists we return the current cart
     # If it does not exist we return an empty dictionary
     cart = request.session.get('cart', {})
 
-    if size:
+    if product_name:
         if item_id in list(cart.keys()): # we check to see if the item already exists
-            if size in cart[item_id]['items_by_size'].keys():
-                cart[item_id]['items_by_size'][size] += quantity # If it does we increment the quantity
+            if product_name in cart[item_id]['items_by_product_name'].keys():
+                cart[item_id]['items_by_product_name'][product_name] += quantity # If it does we increment the quantity
                 messages.success(request,
-                                 (f'Updated size {size.upper()} '
+                                 (f'Updated product_name {product_name.upper()} '
                                   f'{product.product_name} quantity to '
-                                  f'{cart[item_id]["items_by_size"][size]}'))
+                                  f'{cart[item_id]["items_by_product_name"][product_name]}'))
             else:
-                cart[item_id]['items_by_size'][size] = quantity # if it does not exist we initiate a new quantuty
+                cart[item_id]['items_by_product_name'][product_name] = quantity # if it does not exist we initiate a new quantuty
                 messages.success(request,
-                                 (f'Added size {size.upper()} '
+                                 (f'Added product_name {product_name.upper()} '
                                   f'{product.product_name} to your cart'))
         else: # If it does not exist we will create a new cart_items instance
-            cart[item_id] = {'items_by_size': {size: quantity}}
+            cart[item_id] = {'items_by_product_name': {product_name: quantity}}
             messages.success(request,
-                             (f'Added size {size.upper()} '
+                             (f'Added product_name {product_name.upper()} '
                               f'{product.product_name} to your cart'))
     else:
         if item_id in list(cart.keys()):
@@ -65,24 +65,24 @@ def adjust_cart(request, item_id):
 
     product = get_object_or_404(Product, pk=item_id)
     quantity = int(request.POST.get('quantity'))
-    size = None
-    if 'product_size' in request.POST:
-        size = request.POST['product_size']
+    product_name = None
+    if 'product_product_name' in request.POST:
+        product_name = request.POST['product_product_name']
     cart = request.session.get('cart', {})
 
-    if size:
+    if product_name:
         if quantity > 0:
-            cart[item_id]['items_by_size'][size] = quantity
+            cart[item_id]['items_by_product_name'][product_name] = quantity
             messages.success(request,
-                             (f'Updated size {size.upper()} '
+                             (f'Updated product_name {product_name.upper()} '
                               f'{product.product_name} quantity to '
-                              f'{cart[item_id]["items_by_size"][size]}'))
+                              f'{cart[item_id]["items_by_product_name"][product_name]}'))
         else:
-            del cart[item_id]['items_by_size'][size]
-            if not cart[item_id]['items_by_size']:
+            del cart[item_id]['items_by_product_name'][product_name]
+            if not cart[item_id]['items_by_product_name']:
                 cart.pop(item_id)
             messages.success(request,
-                             (f'Removed size {size.upper()} '
+                             (f'Removed product_name {product_name.upper()} '
                               f'{product.product_name} from your cart'))
     else:
         if quantity > 0:
@@ -105,17 +105,17 @@ def remove_from_cart(request, item_id):
 
     try:
         product = get_object_or_404(Product, pk=item_id)
-        size = None
-        if 'product_size' in request.POST:
-            size = request.POST['product_size']
+        product_name = None
+        if 'product_product_name' in request.POST:
+            product_name = request.POST['product_product_name']
         cart = request.session.get('cart', {})
 
-        if size:
-            del cart[item_id]['items_by_size'][size]
-            if not cart[item_id]['items_by_size']:
+        if product_name:
+            del cart[item_id]['items_by_product_name'][product_name]
+            if not cart[item_id]['items_by_product_name']:
                 cart.pop(item_id)
             messages.success(request,
-                             (f'Removed size {size.upper()} '
+                             (f'Removed product_name {product_name.upper()} '
                               f'{product.product_name} from your cart'))
         else:
             cart.pop(item_id)

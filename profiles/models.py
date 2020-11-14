@@ -26,7 +26,8 @@ class UserProfile(models.Model):
                                         null=True, blank=True)
     default_country = CountryField(blank_label='Country',
                                    null=True, blank=True)
-    is_member = models.BooleanField(default=False)                               
+    is_member = models.BooleanField(default=False)    
+    is_life_member = models.BooleanField(default=False)                           
 
     def __str__(self):
         return self.user.username

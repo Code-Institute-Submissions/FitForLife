@@ -97,9 +97,10 @@ body {
 
 .container {
   width: 100%;/*whatever size you want your container*/
-  display: flex; /*Make sure to call this on your container*/
-  align-items: stretch; /*stretches all cards same height*/
-  justify-content: space-around; /*some space between cards*/
+}
+
+.col-12{
+    justify-content: center;
 }
 
 /* About Page */
@@ -920,4 +921,29 @@ input[name='q']::placeholder {
   padding: 20px;
   background: #fff;
   min-height: 460px;
+}
+
+/* footer */
+.social-links {
+    font-size: 1.2rem;
+    background-color: #232323;
+    width: 100%;
+    color: #fafafa;
+    padding-top: 0.2rem;
+    text-align: center;
+}
+
+.social-links a {
+    color: #fafafa;
+    margin: 0 1rem 1rem 1rem;
+    transition: 0.5s;
+}
+
+.social-links a:hover {
+    color: #ff914d;;
+    text-decoration: none;
+}
+
+.footer-copyright {
+    background-color: #ff914d;;
 }

@@ -24,6 +24,9 @@ class UserProfileForm(forms.ModelForm):
             'is_life_member': 'Purchase a plan',
         }
 
+        self.fields['is_member'].widget = forms.HiddenInput()
+        self.fields['is_life_member'].widget = forms.HiddenInput()
+
         self.fields['default_phone_number'].widget.attrs['autofocus'] = True
         for field in self.fields:
             if field != 'default_country':

@@ -21,9 +21,9 @@
             </div>
             <div class="col-lg-4 col-md-6 mb-3 details mt-2">
                 <h3>My Details</h3>
-                <h6>Name:{{ profile.user.username }}</h6>
-                <h6>Username:</h6>
-                <h6>DOB:</h6>
+                <h6>Name: {{ profile.user.username }}</h6>
+                <h6>Username: {{ profile.user.first_name }} {{ profile.user.last_name }}</h6>
+                <h6>Email: {{ profile.user.email }}</h6>
             </div>
             <div class="col-lg-4 col-md-6 mb-3 details mt-2">
                 <h3>Membership Plan:
@@ -35,6 +35,19 @@
                         Not a Member    
                     {% endif %}
                 </h3>
+                <h6>Date Joined: {{ profile.user.date_joined }}</h6>
+                <h6>User Status: 
+                    {% if profile.is_member %}
+                        {% if profile.user.is_superuser %}
+                            Subscribed Member and Super User
+                        {% else %}
+                            Subscribed Member
+                        {% endif %} 
+                    {% else %}
+                        Not a Member    
+                    {% endif %}
+
+                </h6>
             </div>
          <!--  --> 
             </div>

@@ -10,51 +10,43 @@
 {% endblock %}
 
 {% block content %}
-<section class="plans-bg">
-<div class="container-fluid plans mb-2">
-   
-    <div class="landing-text">
-            <h1 class="plans-header-text">{{ plan.plan_name }}</h1>
-    </div>
 
-</div>
-<div class="container-fluid">
-    <div class="row">
-    {% if plan.workouts_list %}  
-          
+    <div class="container-fluid plans mb-2">
+        <div class="landing-text">
+                <h1 class="plans-header-text">{{ plan.plan_name }}</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+        {% if plan.workouts_list %}  
             {% for workout in plan.workouts_list %}
-         <div class="col-lg-3 col-md-6 mb-3">
-            <div class="card plan-card">
-                 {% if workout.image %}
-                        <a href="{{ workout.image.url }}" target="_blank">
-                            <img class="workout-icon center" src="{{ workout.image.url }}" alt="{{ plan.plan_name }}">
-                        </a>
-                        {% else %}
-                        <a href="">
-                            <img class="workout-icon center" src="{{ MEDIA_URL }}noimage.png" alt="{{ plan.plan_name }}">
-                        </a>
-                    {% endif %}
-                    <h4 class="card-title text-center">{{ workout.workout_name }}</h4>
-                                    <small class="text-muted pl-1">{{ workout.description }}</small>
-                                    <br>
-                                    {% for detail in workout.details_list %}
-                                    <i class="far fa-check-circle pl-2">{{ detail }}</i>
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="card plan-card">
+                    {% if workout.image %}
+                            <a href="{{ workout.image.url }}" target="_blank">
+                                <img class="workout-icon center" src="{{ workout.image.url }}" alt="{{ plan.plan_name }}">
+                            </a>
+                            {% else %}
+                            <a href="">
+                                <img class="workout-icon center" src="{{ MEDIA_URL }}noimage.png" alt="{{ plan.plan_name }}">
+                            </a>
+                        {% endif %}
+                        <h4 class="card-title text-center">{{ workout.workout_name }}</h4>
+                                        <small class="text-muted pl-1">{{ workout.description }}</small>
                                         <br>
-                                    {% endfor %}
+                                        {% for detail in workout.details_list %}
+                                        <i class="far fa-check-circle pl-2">{{ detail }}</i>
+                                            <br>
+                                        {% endfor %}
                     </div>
                 </div> <!--  Card -->
-            {% endfor %} 
-            </div>   <!--  Class --> 
+                {% endfor %} 
+        </div>   <!--  Class --> 
         {% else %}
             </div>
             <small class="text-muted">No Workouts</small>
         {% endif %}
-    </div> <!--  Row --> 
-            </div>
-         </div>
-    </div>
-</div>
-</section>
+
 {% endblock %} 
 
 {% block postloadjs %}

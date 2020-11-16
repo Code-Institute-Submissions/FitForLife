@@ -62,13 +62,21 @@
                     <div class="col-7 offset-2">
                         <p class="my-0">Order Total:</p>
                         <p class="my-0">Delivery:</p>
+                        <p class="my-0">Discount (20%):</p>
                         <p class="my-0">Grand Total:</p>
+
                     </div>
                     <div class="col-3">
                         <p class="my-0">${{ total | floatformat:2 }}</p>
                         <p class="my-0">${{ delivery | floatformat:2 }}</p>
+                        <p class="my-0">${{ discount | floatformat:2 }}</p>
                         <p class="my-0"><strong>${{ grand_total | floatformat:2 }}</strong></p>
+                        
                     </div>
+                </div>
+                <div class="row text-black text-right">
+                    <p class="text-muted">Members can avail of a generous 20% discount on all orders, </p>
+                    <a href="{% url 'plans' %}"> &nbsp see our plans page</a>
                 </div>
             </div>
             <div class="col-12 col-lg-6">

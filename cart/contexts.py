@@ -2,6 +2,7 @@ from decimal import Decimal
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from products.models import Product
+from profiles.models import UserProfile
 
 # The context processor is responsible for making the contents of the cart available to all application apps
 # A context processor has a simple interface:
@@ -14,6 +15,7 @@ def cart_contents(request):
     cart_items = []
     total = 0
     product_count = 0
+    discount = 0
     # We first check to see if a cart already exists, if it does not we create an empty dictionary
     cart = request.session.get('cart', {})
 
@@ -40,7 +42,14 @@ def cart_contents(request):
                     'product': product,
                     'product_name': product_name,
                 })
-
+    # now if the user is a member we calculate the discount
+    profile = UserProfile.objects.get(user=request.user)
+    if profile.is_member:
+        discount = -(total * Decimal(0.20))
+        discount = round(discount, 2)
+    else:
+        discount = 0    
+    total = total
     if total < settings.FREE_DELIVERY_THRESHOLD:
         delivery = total * Decimal(settings.STANDARD_DELIVERY_PERCENTAGE / 100)
         free_delivery_delta = settings.FREE_DELIVERY_THRESHOLD - total
@@ -48,11 +57,12 @@ def cart_contents(request):
         delivery = 0
         free_delivery_delta = 0
 
-    grand_total = delivery + total
+    grand_total = delivery + total + discount
 
     context = {
         'cart_items': cart_items, # a dictionary of items in the cart
         'total': total,
+        'discount':discount,
         'product_count': product_count,
         'delivery': delivery,
         'free_delivery_delta': free_delivery_delta,

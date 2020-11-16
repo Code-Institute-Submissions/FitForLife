@@ -271,12 +271,12 @@ if 'USE_GMAIL_SERVER' in os.environ:
     EMAIL_USE_SSL = True # was blank
     EMAIL_PORT = 465  #was 587
     EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER') 
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
     DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    DEFAULT_FROM_EMAIL = 'ffl@example.com'
+    DEFAULT_FROM_EMAIL = str(EMAIL_HOST_USER)
 
 
 logger.warn('development : ' + str(development))

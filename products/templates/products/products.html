@@ -109,10 +109,14 @@
     </div>
     <div class="page-links">
         {% if products.has_previous %}
-        <a href="{% url 'products' %}?page={{ products.previous_page_number }}">Previous Page</a>
+         <button type="button" class="btn btn-block btn-product">
+        <a href="{% url 'products' %}?page={{ products.previous_page_number }}" class="pag-btn">Previous Page</a>
+         </button>
         {% endif %}
         {% if products.has_next %}
+         <button type="button" class="btn btn-block btn-product">
         <a href="{% url 'products' %}?page={{ products.next_page_number }}">Next Page</a>
+         </button>
         {% endif %}
     </div>
 

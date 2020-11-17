@@ -29,7 +29,7 @@ class Order(models.Model):
                                         null=False, default=0)
     discount =   models.DecimalField(max_digits=6, decimal_places=2,
                                         null=False, default=0)
-                                                                          
+
     order_total = models.DecimalField(max_digits=10, decimal_places=2,
                                       null=False, default=0)
     grand_total = models.DecimalField(max_digits=10, decimal_places=2,
@@ -70,6 +70,9 @@ class Order(models.Model):
 
     def __str__(self):
         return self.order_number
+
+
+
 
 
 class OrderLineItem(models.Model):

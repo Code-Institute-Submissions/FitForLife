@@ -13,8 +13,14 @@ from profiles.models import UserProfile
 from profiles.forms import UserProfileForm
 from cart.contexts import cart_contents
 
+import logging
+import logging.config
+
 import stripe
 import json
+
+# Get an instance of a logger
+logger = logging.getLogger('django') #__name__ specifies the module name, django is the general purpose logger
 
 
 @require_POST
@@ -33,6 +39,7 @@ def cache_checkout_data(request):
                                  'processed right now. Please try '
                                  'again later.'))
         return HttpResponse(content=e, status=400)
+
 
 
 def checkout(request):
@@ -148,6 +155,11 @@ def checkout(request):
 
     return render(request, template, context)
 
+def has_membership(order):
+    for lineitem in order.lineitems.all():
+        if lineitem.product.category_id == 3: # a plan was purchased
+            return True
+    return False
 
 def checkout_success(request, order_number):
     """
@@ -155,7 +167,7 @@ def checkout_success(request, order_number):
     """
     save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
-
+    purchased_membership = has_membership(order)
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
         # Attach the user's profile to the order
@@ -175,6 +187,9 @@ def checkout_success(request, order_number):
             }
             user_profile_form = UserProfileForm(profile_data, instance=profile)
             if user_profile_form.is_valid():
+                if purchased_membership:
+                    logger.warn("User purchased membership")
+                    profile.is_member = True
                 user_profile_form.save()
 
     messages.success(request, f'Order successfully processed! \

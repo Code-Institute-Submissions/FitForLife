@@ -43,12 +43,13 @@ def cart_contents(request):
                     'product_name': product_name,
                 })
     # now if the user is a member we calculate the discount
-    profile = UserProfile.objects.get(user=request.user)
-    if profile.is_member:
-        discount = -(total * Decimal(0.20))
-        discount = round(discount, 2)
-    else:
-        discount = 0    
+    if request.user.is_authenticated:
+        profile = UserProfile.objects.get(user=request.user)
+        if profile.is_member:
+            discount = -(total * Decimal(0.20))
+            discount = round(discount, 2)
+        else:
+            discount = 0    
     total = total
     if total < settings.FREE_DELIVERY_THRESHOLD:
         delivery = total * Decimal(settings.STANDARD_DELIVERY_PERCENTAGE / 100)

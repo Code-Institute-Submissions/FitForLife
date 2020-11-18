@@ -56,5 +56,3 @@ This page displays serveral cards. Each card is a detailed how-to guide on an in
 ### Profile Page 
 Registered users will have the option to view their profile page. This page will display their details (name, username etc), allow them to save shipping address details and to view their previous order details. 
 
-
-

@@ -121,7 +121,7 @@ def checkout(request):
 
         # Attempt to prefill the form with any info
         # the user maintains in their profile
-        if request.user.is_authenticated:
+        if request.user.is_authenticated():
             try:
                 profile = UserProfile.objects.get(user=request.user)
                 order_form = OrderForm(initial={
@@ -168,7 +168,7 @@ def checkout_success(request, order_number):
     save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
     purchased_membership = has_membership(order)
-    if request.user.is_authenticated:
+    if request.user.is_authenticated():
         profile = UserProfile.objects.get(user=request.user)
         # Attach the user's profile to the order
         order.user_profile = profile

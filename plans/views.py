@@ -15,6 +15,7 @@ def all_plans(request):
     """ A view to show all plans, including sorting and search queries """
 
     plans = Plan.objects.all()
+    profile = None
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
 

@@ -20,8 +20,13 @@ def add_to_cart(request, item_id):
     # The redirect_url is where we came from, we will use this to return to the current page once the user has added items
     redirect_url = request.POST.get('redirect_url')
     product_name = None
-    if 'product_product_name' in request.POST:
-        product_name = request.POST['product_product_name']
+    # Debug Code
+    for key in request.POST:
+        print(key)
+        value = request.POST[key]
+        print(value)
+    if 'product_name' in request.POST:
+        product_name = request.POST['product_name']
     # We get the cart variable if it already exists in the session
     # If it exists we return the current cart
     # If it does not exist we return an empty dictionary

@@ -56,3 +56,70 @@ This page displays serveral cards. Each card is a detailed how-to guide on an in
 ### Profile Page 
 Registered users will have the option to view their profile page. This page will display their details (name, username etc), allow them to save shipping address details and to view their previous order details. 
 
+# Deployment
+## Heroku
+I used the following [guide](https://github.com/codingforentrepreneurs/Guides/blob/master/all/Heroku_Django_Deployment_Guide.md) to help with deploying my project to Heroku.
+### Creating the Heroku Postgresql app
+* heroku login -i
+* heroku apps:create django-ffl-app --region eu
+* checks its status with: heroku apps
+* Now go to https://dashboard.heroku.com/apps/django-ffl-app/resources
+* In the Add on section search for heroku-postgresql
+* Install it then go to https://dashboard.heroku.com/apps/django-ffl-app/settings and click reveal config vars
+* You can find the Database URL here and it will be something like; postgres://bmhukkzcvbrudo:f0...09b91a12d869da.........e90906bf522e82621b6a4b7a3...92d8a209@ec2-54-246-115-40.eu-west-1.compute.amazonaws.com:5..2/dcr08.......
+* Now install pip3 install dj_database_url
+* heroku config or heroku config -a django-ffl-app  will reveal the database string also
+* Add the following to the top of the settings.py file: import dj_database_url
+* Add the following definition for the postgreSQL cloud hosted database: <br>/
+`DATABASES = {     'default':  dj_database_ur.parse('postgres://bmhu......do:f0efd09b91a1...............90906bf522e82621b6a4b7a3712c992d8a209@ec2-54-246-115-40.eu-west-1.compute.amazonaws.com:..32/dc......67p5k70')`
+`}`<br>/
+* Disable the requirement to collect static files: heroku config:set DISABLE_COLLECTSTATIC=1
+* we now need to create a Procfile with the following content: <br>/
+`web: gunicorn ffl.wsgi:application`<br>/
+* Add the Heroku Hostname to our settings.py file: ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com']"
+* git add Procfile
+* git add settings.py 
+* git commit -m "Adding Procfile for Heroku and heroku hostname to allowed apps"
+* we can now push to Heroku with: git push heroku master
+
+### Connecting to Heroku Database from the Heroku CLI:
+* heroku pg:psql
+* It will select the default database
+* You can issue SQL commands:  select product_name from public.products_product;
+* A guide to using the cli is [Here](https://devcenter.heroku.com/articles/heroku-postgresql#using-the-cli)
+* Dumping Database in plain Text format: [Here](https://stackoverflow.com/questions/22887524/how-can-i-get-a-plain-text-postgres-database-dump-on-heroku)
+
+## MySQL
+### Setting up MySQL with Python and Django
+* sudo apt-get install libmysqlclient-dev
+* sudo apt-get install libmysqlclient-dev python-dev
+* pip3 install pymysql
+* pip install mysqlclient
+
+### Logging in to MySQL
+* pip install mysqlclient
+* sudo mysql -u root
+* SHOW DATABASES;
+* CREATE DATABASE ffl_database; #create a new database
+* CREATE USER 'djangouser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'djangouser90';
+* GRANT ALL ON ffl_database.* TO 'djangouser'@'localhost';
+* Add the following to the settings.py<br/>
+`DATABASES = {`<br/>
+    `'default': {`<br/>
+        `'ENGINE': 'django.db.backends.mysql',`<br/>
+        `'OPTIONS': {`<br/>
+            `'read_default_file': '/etc/mysql/my.cnf',`<br/>
+        `},`<br/>
+    `}`<br/>
+`}`<br/>
+* sudo nano /etc/mysql/my.cnf
+* Add this:
+`[client]`<br/>
+`database = hello_world`<br/>
+`user = djangouser`<br/>
+`password = djangouser90`<br/>
+`default-character-set = utf8`<br/>
+* Restart the mysql server
+* sudo systemctl daemon-reload
+* sudo systemctl restart mysql
+* MariaDB's Strict Mode fixes many data integrity problems in MariaDB, such as data truncation upon insertion, by escalating warnings into errors. It is strongly recommended you activate it. [See here](https://docs.djangoproject.com/en/3.1/ref/databases/#mysql-sql-mode): 

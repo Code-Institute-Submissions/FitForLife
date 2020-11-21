@@ -216,10 +216,6 @@ body {
   padding-top: 20px;
 }
 
-.container label {
-  display: none;
-}
-
 .container input,
 .container textarea {
   /* to create space for placing icon*/

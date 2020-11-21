@@ -123,3 +123,5 @@ I used the following [guide](https://github.com/codingforentrepreneurs/Guides/bl
 * sudo systemctl daemon-reload
 * sudo systemctl restart mysql
 * MariaDB's Strict Mode fixes many data integrity problems in MariaDB, such as data truncation upon insertion, by escalating warnings into errors. It is strongly recommended you activate it. [See here](https://docs.djangoproject.com/en/3.1/ref/databases/#mysql-sql-mode): 
+
+# Testing

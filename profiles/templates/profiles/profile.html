@@ -25,11 +25,11 @@
       <div class="col-lg-4 col-md-6 mb-3 details mt-2">
          <h3>Membership Plan:
             {% if profile.is_member %}
-            12 Months Membership
-            {% elif profile.is_member %}
-            Lifetime Membership
+                12 Months Membership
+            {% elif profile.is_life_member %}
+                Lifetime Membership
             {% else %}
-            Not a Member    
+                Not a Member    
             {% endif %}
          </h3>
          <h6>Date Joined: {{ profile.user.date_joined }}</h6>

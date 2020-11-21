@@ -161,6 +161,12 @@ def has_membership(order):
             return True
     return False
 
+def has_life_membership(order):
+    for lineitem in order.lineitems.all():
+        if lineitem.product.id == 26: # a lifetime plan was purchased
+            return True
+    return False
+
 def checkout_success(request, order_number):
     """
     Handle successful checkouts
@@ -168,6 +174,7 @@ def checkout_success(request, order_number):
     save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
     purchased_membership = has_membership(order)
+    purchased_life_membership = has_life_membership(order)
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
         # Attach the user's profile to the order
@@ -190,6 +197,8 @@ def checkout_success(request, order_number):
                 if purchased_membership:
                     logger.warn("User purchased membership")
                     profile.is_member = True
+                    if purchased_life_membership:
+                        profile.is_life_member = True
                 user_profile_form.save()
 
     messages.success(request, f'Order successfully processed! \

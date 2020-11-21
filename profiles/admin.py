@@ -14,6 +14,7 @@ class ProfileAdmin(admin.ModelAdmin):
         'default_postcode',
         'default_country',
         'is_member',
+        'is_life_member',
     )
 
 

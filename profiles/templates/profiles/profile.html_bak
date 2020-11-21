@@ -26,12 +26,12 @@
         <h3>Membership Plan:
         {% if profile.is_member %}
             {% if profile.is_life_member %}
-                Life Time Membership 
-            {% else %}
-                12 Months Membership
-            {% endif %}
-        {% else %}
-            not a member
+                Life Time Membership
+            <!-- {% else %} -->
+                12 Months Membership 
+            { endif %}    
+        <!-- {% else %} -->
+            Not a Member  
         {% endif %}
         </h3>
         <h6>Date Joined: {{ profile.user.date_joined }}</h6>

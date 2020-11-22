@@ -5,7 +5,7 @@ from .models import UserProfile
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        exclude = ('user',)
+        exclude = ('user','is_member','is_life_member')
 
     def __init__(self, *args, **kwargs):
         """
@@ -20,12 +20,12 @@ class UserProfileForm(forms.ModelForm):
             'default_street_address1': 'Street Address 1',
             'default_street_address2': 'Street Address 2',
             'default_county': 'County, State or Locality',
-            'is_member': 'Purchase a plan',
-            'is_life_member': 'Purchase a plan',
+            # 'is_member': 'Purchase a plan',
+            # 'is_life_member': 'Purchase a plan',
         }
 
-        self.fields['is_member'].widget = forms.HiddenInput()
-        self.fields['is_life_member'].widget = forms.HiddenInput()
+        #self.fields['is_member'].widget = forms.HiddenInput()
+        #self.fields['is_life_member'].widget = forms.HiddenInput()
 
         self.fields['default_phone_number'].widget.attrs['autofocus'] = True
         for field in self.fields:

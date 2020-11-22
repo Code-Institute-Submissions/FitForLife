@@ -84,12 +84,12 @@
                      </a>
                   </td>
                   <td>{{ order.date }}</td>
-                  <td>{{ order.details }}</td>
+                  <!-- <td>{{ order.details }}</td> -->
                   <td>
                      <ul class="list-unstyled">
                         {% for item in order.lineitems.all %}
                         <li class="small">
-                           {{ item.product.name }} x{{ item.quantity }}
+                           {{ item.product_name }} x{{ item.quantity }}
                         </li>
                         {% endfor %}
                      </ul>

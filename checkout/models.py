@@ -56,7 +56,15 @@ class Order(models.Model):
             self.delivery_cost = self.order_total * sdp / 100
         else:
             self.delivery_cost = 0
-        self.grand_total = self.order_total + self.delivery_cost
+        # profile = UserProfile.objects.get(user=self.user_profile_id)
+        # if profile.is_member:
+        #     self.discount = -(self.order_total * Decimal(0.20))
+        #     self.discount = round(discount, 2)
+        # else:
+        #     self.discount = 0 
+        self.grand_total = self.order_total + self.discount + self.delivery_cost
+        #self.discount = self.lineitems.aggregate(
+        #     Sum('lineitem_discount'))['lineitem_discount__sum'] or 0
         self.save()
 
     def save(self, *args, **kwargs):
@@ -85,6 +93,7 @@ class OrderLineItem(models.Model):
     lineitem_total = models.DecimalField(max_digits=6, decimal_places=2,
                                          null=False, blank=False,
                                          editable=False)
+                                    
     product_name = models.CharField(max_length=255, null=True,
                                     blank=True)  
 

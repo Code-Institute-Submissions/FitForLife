@@ -833,6 +833,11 @@ input[name='q']::placeholder {
     border: 1px solid
   }
 
+.logo-icon img {
+    width: 10%;
+    border: 1px solid
+  }
+
 .profile-userpic img {
   float: none;
   display:block;

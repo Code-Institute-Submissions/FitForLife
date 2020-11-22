@@ -55,6 +55,20 @@ The plans page displays three cards, one for each different style of plan: weigh
 This page displays serveral cards. Each card is a detailed how-to guide on an individual excercise. There is also an image relating to the excercise on each card. It is important to note that only registered users who have purchased a membership can view this page. 
 ### Profile Page 
 Registered users will have the option to view their profile page. This page will display their details (name, username etc), allow them to save shipping address details and to view their previous order details. 
+### Stripe 
+#### Integrating Stripe
+* [Stripe Documentation](https://stripe.com/docs/payments/accept-a-payment?integration=elements)
+Stripe works with what are called payment intents. The process will be that when a user hits the checkout page the checkout view will call out to stripe and create a payment intent for the current amount of the shopping bag. When stripe creates it. it'll also have a secret that identifies it. Which will be returned to us and we'll send it to the template as the client secret variable. Then in the JavaScript on the client side.
+We'll call the confirm card payment method from stripe js. Using the client secret which will verify the card number.
+And enter the stripe test card number. 424242424242, You can use any CVC, any date in the future for the expiration date. And any five-digit postal code.<br/>
+#### Creating a Web Hook Endpoint
+* Add a new endpoint with the URL of your site: https://8000-b..25............5.ws-eu01.gitpod.io/**checkout/wh**
+* Register to receive all events and add the endpoint.
+* This will take us to a page where we can reveal the web hook secret key. Add this to your: https://gitpod.io/settings/
+* You can send a test event from this page: https://dashboard.stripe.com/test/webhooks/
+* We can review logs here: https://dashboard.stripe.com/test/logs/
+#### Testing a Web Hook Endpoint using CLI
+* [Stripe Documentation](https://stripe.com/docs/webhooks/test)
 
 # Deployment
 ## Heroku

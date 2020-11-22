@@ -72,7 +72,7 @@ body {
 .plans {
     background: #232323;
     display: table;
-     height: 60%;
+     height: 30%;
      position: relative;
      width: 100%;
      background-size: cover;
@@ -841,9 +841,8 @@ input[name='q']::placeholder {
     border: 1px solid
   }
 
-.logo-icon img {
-    width: 10%;
-    border: 1px solid
+.logo{
+    width: 20%;
   }
 
 .profile-userpic img {

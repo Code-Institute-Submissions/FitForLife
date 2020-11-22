@@ -12,7 +12,9 @@ html {
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Bebas Neue'
 }
-
+td a {
+    color: black;
+}
 a {
     color: white;
 }
@@ -21,11 +23,17 @@ a:hover {
     color: white;
 }
 
+.responsive {
+  width: 100%;
+  height: auto;
+}
+
 body {
     color: #555;
     font-family: 'Roboto';
     height: 100%;
 }
+
 
 .landing-text {
      display: table-cell;

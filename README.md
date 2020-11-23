@@ -138,4 +138,15 @@ I used the following [guide](https://github.com/codingforentrepreneurs/Guides/bl
 * sudo systemctl restart mysql
 * MariaDB's Strict Mode fixes many data integrity problems in MariaDB, such as data truncation upon insertion, by escalating warnings into errors. It is strongly recommended you activate it. [See here](https://docs.djangoproject.com/en/3.1/ref/databases/#mysql-sql-mode): 
 
+
+# Technologies Used
+* [HTML](https://html.com/) – the project uses html as the main language to build the website
+* [Materalize](https://materializecss.com/) – Used as the main frontend framework.
+* [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) – CSS is used to add individual style to the website
+* [Javascript](https://www.javascript.com/) - JS was used to initate certain features of Materalize.
+* [Font Awesome](https://fontawesome.com/) – this site was used to add icons to the site.
+* [MongoBD](https://www.mongodb.com/cloud/atlas/register) - Used as the main database technology.
+* [Jinga](https://jinja.palletsprojects.com/en/2.11.x/) - Used as the main templating language for template manipulation.
+* [Heroku](https://signup.heroku.com/?c=70130000000NeLCAA0&gclid=Cj0KCQjw-uH6BRDQARIsAI3I-UcV96h-n1NbhCxrdQnrMSjNQ72hwiisldeoifqoNJDw0Bf6ekDhtvwaAq5iEALw_wcB) - Used to host the website.
+
 # Testing

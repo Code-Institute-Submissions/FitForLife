@@ -224,6 +224,12 @@ body {
   padding-top: 20px;
 }
 
+/* NavBar */
+.dark-nav {
+    background-color: #6f6f71;
+    color: #ff914d;
+}
+
 .container input,
 .container textarea {
   /* to create space for placing icon*/
@@ -689,16 +695,12 @@ input[name='q']::placeholder {
         z-index: 1030;
     }
 
-    .header-container {
-        padding-top: 164px;
-    }
+
 }
 
 /* pad the top a bit when navbar is collapsed on mobile */
 @media (max-width: 991px) {
-    .header-container {
-        padding-top: 116px;
-    }
+  
 
     body {
         height: calc(100vh - 116px);
@@ -842,7 +844,7 @@ input[name='q']::placeholder {
   }
 
 .logo{
-    width: 20%;
+    color: 	rgb(255,140,0, 0.75);
   }
 
 .profile-userpic img {

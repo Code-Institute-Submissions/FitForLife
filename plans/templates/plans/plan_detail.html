@@ -8,16 +8,18 @@
 </div>
 {% endblock %}
 {% block content %}
+ <!--Header Displaying Plan Name-->
 <div class="container-fluid plans mb-2">
    <div class="landing-text">
       <h1 class="plans-header-text">{{ plan.plan_name }}</h1>
    </div>
 </div>
+ <!-- Container displaying Workout Cards-->
 <div class="container">
     {% if plan.workouts_list %}  
- 
                 <div class="row">
                     {% for workout in plan.workouts_list %}
+                    <!-- Work Out Card-->
                     <div class="col-lg-3 col-md-6 mb-3">
                         <div class="card plan-card">
                             {% if workout.image %}
@@ -36,15 +38,12 @@
                                         <i class="far fa-check-circle pl-2">{{ detail }}</i>
                                         <br>
                                         {% endfor %}
-                        </div>
-                        
+                        </div>  
                     </div>
                     {% endfor %}
                 </div>
-   
-
-    
     {% else %}
+     <!--Text to display if no workout cards -->
     <small class="text-muted">No Workouts</small>
     {% endif %}
 </div>

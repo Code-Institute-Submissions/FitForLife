@@ -39,6 +39,8 @@ body {
     height: 100%;
 }
 
+
+
 .container {
   width: 100%;
 }
@@ -56,7 +58,7 @@ body {
 
 /* --------> Navbar Styling <-------- */
 .dark-nav {
-    background-color: white;
+    background-color: rgb(160, 155, 155);
     color: #ff914d;
 }
 
@@ -520,9 +522,7 @@ input[name='q']::placeholder {
   .container {
     max-width: 80%;
   }
-  .header-container {
-      margin-top:130px;
-  }
+  
 }
 
 /* Allauth form formatting */
@@ -697,7 +697,7 @@ input[name='q']::placeholder {
         z-index: 1030;
     }
     .header-container {
-        padding-top: 164px;
+        padding-top: 130px;
     }
 
 }

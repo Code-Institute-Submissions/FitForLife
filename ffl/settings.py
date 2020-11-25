@@ -80,7 +80,7 @@ if heroku == "True":
     ALLOWED_HOSTS = [os.environ.get('HEROKU_HOSTNAME'),'localhost','127.0.0.1']
     logger.warn('using allowed Hosts for heroku and heroku database instance because we are in production mode:[' + str(ALLOWED_HOSTS) + ']')
 else:
-    ALLOWED_HOSTS = ['localhost','127.0.0.1']
+    ALLOWED_HOSTS = ['localhost','127.0.0.1','192.168.1.15']
 
 # ALLOWED_HOSTS = ['localhost','django-ffl-app.herokuapp.com']
 # Application definition

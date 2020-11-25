@@ -27,13 +27,13 @@ The site was designed with three users in mind: admin, registered user and non-r
 ## Mock-Ups 
 I created the Mock-Ups for the website by using Figma. There are Mock-ups for all devices in the following [folder]. Please see the main pages below.
 ###### Products page
-<img src="(/Readme/MockUps/FFLMocupAllProductsPage.jpg) style="margin: 0;">
+![Products Page](/Readme/MockUps/FFLMocupAllProductsPage.jpg) 
 ###### Individual Product page
-<img src="(/Readme/MockUps/FFLMocupProductPage.jpg) style="margin: 0;">
+![Individual Products Page](/Readme/MockUps/FFLMocupProductPage.jpg)
 ###### Profile page
-<img src="(/Readme/MockUps/FFLMocupAllProfilePage.jpg) style="margin: 0;">
+![Profile Page](/Readme/MockUps/FFLMocupAllProfilePage.jpg)
 ###### Products page
-<img src="(/Readme/MockUps/FFLMocupPlansPage.jpg) style="margin: 0;">
+![Plans Page](/Readme/MockUps/FFLMocupPlansPage.jpg)
 
 # Features
 Fit For Life comprises of a Homepage, products page, Individual Products Page, Plans Page, Plan Workout Page, Shopping Cart Page, Checkout Page and Profile page. The website is fully responsive.
@@ -71,6 +71,22 @@ And enter the stripe test card number. 424242424242, You can use any CVC, any da
 * [Stripe Documentation](https://stripe.com/docs/webhooks/test)
 
 # Deployment
+### Enviroment Variables
+The below environment variables were set up:
+
+Variable name |	Used for	
+------------ | -------------
+EMAIL_HOST_USER	| Sending notification emails	
+EMAIL_HOST_PASSWORD |	To login for sending notification emails	
+STRIPE_PUBLIC_KEY |	Needed for the stripe payment system	
+STRIPE_SECRET_KEY |	Needed for the stripe payment system	
+STRIPE_WH_SECRET   |	Needed for the stripe payment system	
+AWS_ACCESS_KEY_ID | Needed for the S3 Bucket static files	
+AWS_SECRET_ACCESS_KEY | Needed for the S3 Bucket static files	
+AWS	Deployment only | to tell Django to use s3 instead of local static files	
+DATABASE_URL | Deployment only - sets hosted Postgres database	
+SECRET_KEY | Used by Django as a salt to generate hashes
+
 ## Heroku
 I used the following [guide](https://github.com/codingforentrepreneurs/Guides/blob/master/all/Heroku_Django_Deployment_Guide.md) to help with deploying my project to Heroku.
 ### Creating the Heroku Postgresql app
@@ -150,3 +166,4 @@ I used the following [guide](https://github.com/codingforentrepreneurs/Guides/bl
 * [Heroku](https://signup.heroku.com/?c=70130000000NeLCAA0&gclid=Cj0KCQjw-uH6BRDQARIsAI3I-UcV96h-n1NbhCxrdQnrMSjNQ72hwiisldeoifqoNJDw0Bf6ekDhtvwaAq5iEALw_wcB) - Used to host the website.
 
 # Testing
+

@@ -6,17 +6,14 @@ from django.views.decorators.http import require_POST
 import logging
 import logging.config
 from checkout.webhook_handler import StripeWH_Handler
+
 import stripe
 
 logger = logging.getLogger('django') #__name__ specifies the module name, django is the general purpose logger
 
-
-@csrf_exempt  
-#@require_POST
+@require_POST
+@csrf_exempt
 def webhook(request):
-    # jsondata = request.body
-    # print("webhook called:jsondata " + str(jsondata) ) # print value of answers
-    # return HttpResponse(status=200)
     """Listen for webhooks from Stripe"""
     logger.warn('Webhook called')
     # Setup
@@ -25,10 +22,6 @@ def webhook(request):
 
     # Get the webhook data and verify its signature
     payload = request.body
-    for key in request.META:
-        print(key)
-        value = request.POST[key]
-        print(value)
     sig_header = request.META['HTTP_STRIPE_SIGNATURE']
     event = None
 

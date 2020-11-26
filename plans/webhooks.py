@@ -6,6 +6,7 @@ from django.views.decorators.http import require_POST
 import logging
 import logging.config
 from checkout.webhook_handler import StripeWH_Handler
+import stripe
 
 logger = logging.getLogger('django') #__name__ specifies the module name, django is the general purpose logger
 

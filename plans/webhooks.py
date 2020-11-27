@@ -11,7 +11,7 @@ import stripe
 
 logger = logging.getLogger('django') #__name__ specifies the module name, django is the general purpose logger
 
-#@require_POST
+@require_POST
 @csrf_exempt
 def webhook(request):
     """Listen for webhooks from Stripe"""
@@ -19,9 +19,9 @@ def webhook(request):
     if request.POST:
         for key in request.POST:
             logger.warn('Request Key POST:' + str(key) + ' = ' + request.POST[key])
-    if request.META:
-        for key in request.META:
-            logger.warn('Request Key META:' + str(key) + ' = ' + request.META[key])
+    # if request.META:
+    #     for key in request.META:
+    #         logger.warn('Request Key META:' + str(key) + ' = ' + request.META[key])
 
     logger.warn('Webhook:Completing')
-    return response
+    return HttpResponse(status=200)

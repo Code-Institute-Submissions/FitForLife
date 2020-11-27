@@ -18,7 +18,13 @@ def webhook(request):
     # Setup
     wh_secret = settings.STRIPE_WH_SECRET
     stripe.api_key = settings.STRIPE_SECRET_KEY
-
+    if request.POST:
+        for key in request.POST:
+            logger.warn('Request Key POST:' + str(key) + ' = ' + str(request.POST[key]))
+    if request.META:
+        for key in request.META:
+            logger.warn('Request Key META:' + str(key) + ' = ' + str(request.META[key]))
+            
     # Get the webhook data and verify its signature
     payload = request.body
     sig_header = request.META['HTTP_STRIPE_SIGNATURE']

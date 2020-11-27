@@ -24,7 +24,7 @@ def webhook(request):
     if request.META:
         for key in request.META:
             logger.warn('Request Key META:' + str(key) + ' = ' + str(request.META[key]))
-            
+
     # Get the webhook data and verify its signature
     payload = request.body
     sig_header = request.META['HTTP_STRIPE_SIGNATURE']
@@ -40,7 +40,8 @@ def webhook(request):
         # Invalid payload
         return HttpResponse(content=e, status=400)
     except stripe.error.SignatureVerificationError as e:
-        logger.warn('Webhook:Invalid signature')
+        logger.warn('Webhook:Invalid signature using wh_s:' + str(wh_secret))
+        logger.warn('Webhook:Invalid signature using api_s: ' + str(stripe.api_key))
         # Invalid signature
         return HttpResponse(content=e, status=400)
     except Exception as e:

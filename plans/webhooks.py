@@ -16,11 +16,12 @@ logger = logging.getLogger('django') #__name__ specifies the module name, django
 def webhook(request):
     """Listen for webhooks from Stripe"""
     logger.warn('Webhook called')
-
-    for key in request.POST:
-        logger.warn('Request Key:' + str(key) + ' = ' request.POST[key])
-    for key in request.META:
-        logger.warn('Request Key:' + str(key) + ' = ' request.POST[key])
+    if request.POST:
+        for key in request.POST:
+            logger.warn('Request Key POST:' + str(key) + ' = ' + request.POST[key])
+    if request.META:
+        for key in request.META:
+            logger.warn('Request Key META:' + str(key) + ' = ' + request.META[key])
 
     logger.warn('Webhook:Completing')
     return response

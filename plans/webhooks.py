@@ -18,10 +18,10 @@ def webhook(request):
     logger.warn('Webhook called')
     if request.POST:
         for key in request.POST:
-            logger.warn('Request Key POST:' + str(key) + ' = ' + request.POST[key])
+            logger.warn('Request Key POST:' + str(key) + ' = ' + str(request.POST[key]))
     if request.META:
         for key in request.META:
-            print('Request Key META:' + str(key) + ' = ' + str(request.META[key]))
+            logger.warn('Request Key META:' + str(key) + ' = ' + str(request.META[key]))
 
     logger.warn('Webhook:Completing')
     return HttpResponse(status=200)

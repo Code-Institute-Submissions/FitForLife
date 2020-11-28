@@ -9,11 +9,15 @@ from checkout.webhook_handler import StripeWH_Handler
 import stripe
 
 logger = logging.getLogger('django') #__name__ specifies the module name, django is the general purpose logger
+webhook_debug = True # used for debuging issues with Stripe Signature Verification
 
-#@require_POST
+
+
+@require_POST
 @csrf_exempt
 def webhook(request):
     """Listen for webhooks from Stripe"""
+    
     logger.warn('Webhook called')
     # Setup
     wh_secret = settings.STRIPE_WH_SECRET
@@ -43,13 +47,15 @@ def webhook(request):
         logger.warn('Webhook:Invalid signature using wh_s:[' + str(wh_secret) + ']')
         logger.warn('Webhook:Invalid signature using api_s:[' + str(stripe.api_key) + ']')
         # Invalid signature
-        return HttpResponse(content=e, status=400)
+        if webhook_debug == False:
+            return HttpResponse(content=e, status=400)
     except Exception as e:
         logger.warn('Webhook:An unknown exception occured')
-        return HttpResponse(content=e, status=400)
+        if webhook_debug == False:
+            return HttpResponse(content=e, status=400)
 
     # Set up a webhook handler
-    logger.warn('Webhook:Calling Strip Handler')
+    logger.warn('Webhook:Calling Stripe Handler')
     handler = StripeWH_Handler(request)
 
     # Map webhook events to relevant handler functions
@@ -63,9 +69,10 @@ def webhook(request):
 
     # If there's a handler for it, get it from the event map
     # Use the generic one by default
+    logger.warn('Webhook:Processing event Handler')
     event_handler = event_map.get(event_type, handler.handle_event)
 
     # Call the event handler with the event
     response = event_handler(event)
-    logger.warn('Webhook:Completing')
+    logger.warn('Webhook:Completing: ' + str(response))
     return response

@@ -2,6 +2,9 @@ from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
+import logging
+import logging.config
+
 
 from .models import Order, OrderLineItem
 from products.models import Product
@@ -9,6 +12,9 @@ from profiles.models import UserProfile
 
 import json
 import time
+
+logger = logging.getLogger('django') #__name__ specifies the module name, django is the general purpose logger
+webhook_handler_debug = True # used for debuging issues with Stripe Signature Verification
 
 
 class StripeWH_Handler:
@@ -19,6 +25,7 @@ class StripeWH_Handler:
 
     def _send_confirmation_email(self, order):
         """Send the user a confirmation email"""
+        logger.warn('Sending Confirmation Email.')
         cust_email = order.email
         subject = render_to_string(
             'checkout/confirmation_emails/confirmation_email_subject.txt',
@@ -33,6 +40,7 @@ class StripeWH_Handler:
             settings.DEFAULT_FROM_EMAIL,
             [cust_email]
         )
+        logger.warn('Sending Confirmation Email Completed.')
 
     def handle_event(self, event):
         """
@@ -46,6 +54,7 @@ class StripeWH_Handler:
         """
         Handle the payment_intent.succeeded webhook from Stripe
         """
+        logger.warn('Handling Payment Intent Success.')
         intent = event.data.object
         pid = intent.id
         cart = intent.metadata.cart
@@ -74,7 +83,8 @@ class StripeWH_Handler:
                 profile.default_street_address2 = shipping_details.address.line2
                 profile.default_county = shipping_details.address.state
                 profile.save()
-
+        else:
+            logger.warn('Handling Anonymous User.')
         order_exists = False
         attempt = 1
         while attempt <= 5:
@@ -99,6 +109,7 @@ class StripeWH_Handler:
                 attempt += 1
                 time.sleep(1)
         if order_exists:
+            logger.warn('Found Order.')
             self._send_confirmation_email(order)
             return HttpResponse(
                 content=(f'Webhook received: {event["type"]} | SUCCESS: '
@@ -106,6 +117,7 @@ class StripeWH_Handler:
                 status=200)
         else:
             order = None
+            logger.warn('Could not find order, creating it.')
             try:
                 order = Order.objects.create(
                     full_name=shipping_details.name,
@@ -140,6 +152,7 @@ class StripeWH_Handler:
                             )
                             order_line_item.save()
             except Exception as e:
+                logger.warn('Problem creating order.' + f'Webhook received: {event["type"]} | ERROR: {e}')
                 if order:
                     order.delete()
                 return HttpResponse(
@@ -155,6 +168,7 @@ class StripeWH_Handler:
         """
         Handle the payment_intent.payment_failed webhook from Stripe
         """
+        logger.warn("Payment intent failed")
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',
             status=200)

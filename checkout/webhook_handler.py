@@ -42,7 +42,6 @@ class StripeWH_Handler:
             )
         except Exception as e:
             logger.warn('Problem sending email: ' +  f' Error received | ERROR: {e}')
-            #logger.warn('Problem sending email')
         logger.warn('Sending Confirmation Email Completed.')
 
     def handle_event(self, event):

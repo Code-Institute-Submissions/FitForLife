@@ -9,9 +9,15 @@ from checkout.webhook_handler import StripeWH_Handler
 import stripe
 
 logger = logging.getLogger('django') #__name__ specifies the module name, django is the general purpose logger
-webhook_debug = True # used for debuging issues with Stripe Signature Verification
+webhook_debug = False # used for debuging issues with Stripe Signature Verification
 
-
+def show_request_data(request):
+    if request.POST:
+        for key in request.POST:
+            logger.warn('Request Key POST:' + str(key) + ' = ' + str(request.POST[key]))
+    if request.META:
+        for key in request.META:
+            logger.warn('Request Key META:' + str(key) + ' = ' + str(request.META[key]))
 
 @require_POST
 @csrf_exempt
@@ -22,12 +28,7 @@ def webhook(request):
     # Setup
     wh_secret = settings.STRIPE_WH_SECRET
     stripe.api_key = settings.STRIPE_SECRET_KEY
-    if request.POST:
-        for key in request.POST:
-            logger.warn('Request Key POST:' + str(key) + ' = ' + str(request.POST[key]))
-    if request.META:
-        for key in request.META:
-            logger.warn('Request Key META:' + str(key) + ' = ' + str(request.META[key]))
+
 
     # Get the webhook data and verify its signature
     payload = request.body

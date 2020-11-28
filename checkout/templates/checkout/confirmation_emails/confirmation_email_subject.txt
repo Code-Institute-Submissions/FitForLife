@@ -1,1 +1,1 @@
-Boutique Ado Confirmation for Order Number {{ order.order_number }}
+Fit For Life Confirmation for Order Number {{ order.order_number }}

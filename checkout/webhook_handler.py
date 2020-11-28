@@ -148,7 +148,7 @@ class StripeWH_Handler:
                                 order=order,
                                 product=product,
                                 quantity=quantity,
-                                product_product_name=product_name,
+                                product_name=product_name,
                             )
                             order_line_item.save()
             except Exception as e:

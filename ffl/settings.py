@@ -185,12 +185,13 @@ if 'DATABASE_URL' in os.environ:
     }
     logger.warn('using Heroku postresql database: to $DATABASE_URL ')
 elif use_test_database == "True":
-       DATABASES = {
+    DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     } 
+    logger.warn('using sqlite database for test: ')
 
 else:
     DATABASES = {
@@ -297,13 +298,15 @@ else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DEFAULT_FROM_EMAIL = str(EMAIL_HOST_USER)
 
+if DEBUG:
+    logger.warn('development : ' + str(development))
+    logger.warn('heroku : ' + str(heroku))
+    logger.warn('heroku database: ' + str(heroku_postgres))
+    logger.warn('allowed hosts: ' + str(ALLOWED_HOSTS))
+    logger.warn('STATICFILES_DIRS: ' + str(STATICFILES_DIRS))
+    logger.warn('EMAIL_HOST_USER: ' + str(EMAIL_HOST_USER))
+    logger.warn('EMAIL_HOST_PASSWORD: ' + str(EMAIL_HOST_PASSWORD))
+    logger.warn('use_test_database: ' + str(use_test_database))
 
-logger.warn('development : ' + str(development))
-logger.warn('heroku : ' + str(heroku))
-logger.warn('heroku database: ' + str(heroku_postgres))
-logger.warn('allowed hosts: ' + str(ALLOWED_HOSTS))
-logger.warn('STATICFILES_DIRS: ' + str(STATICFILES_DIRS))
-logger.warn('EMAIL_HOST_USER: ' + str(EMAIL_HOST_USER))
-logger.warn('EMAIL_HOST_PASSWORD: ' + str(EMAIL_HOST_PASSWORD))
 
 

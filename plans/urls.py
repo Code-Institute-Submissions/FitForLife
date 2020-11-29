@@ -1,7 +1,6 @@
 from django.urls import path
 
 from . import views
-from .webhooks import webhook
 
 urlpatterns = [
     path('', views.all_plans, name='plans'),
@@ -10,5 +9,4 @@ urlpatterns = [
     path('delete/<int:plan_id>/',
          views.delete_plan,
          name='delete_plan'),
-    path('wh/', webhook, name='webhook'),
 ]

@@ -93,7 +93,6 @@ INSTALLED_APPS = [
     'workouts.apps.WorkoutsConfig',
     'planworkouts.apps.PlanWorkoutsConfig',
     'about.apps.AboutConfig',
-    'scorecards.apps.ScorecardsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

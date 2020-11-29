@@ -38,6 +38,7 @@ I created the Mock-Ups for the website by using Figma. There are Mock-ups for al
 # Features
 Customer Facing Pages: Fit For Life consists of a Homepage, products page, Individual Products Page, Plans Page, Plan Workout Page, Shopping Cart Page, Checkout Page and Profile page. The website is fully responsive.
 Admin Facing Pages: In addition to the user facing pages, an admin or superuser has access to a number of specific pages to assist administartion of the site. Access is also provided to the Django provided administration interface for lower level control of data.
+## Site Elements
 ### NavBar
 This responsive  feature allows users to move from page to page. When a user is logged in it displays an option to visit a page called " MyProfile". There is also a link to "Logout" if a user is logged in. In the case that no user is logged in the NavBar simply displays a "Login/Register" Tab. For Mobile and Tablet devices -  a hamburger menu on the top-left expands a menu with links to all of the main pages. The navbar stays fixed at the top of each page for easy navigation at all times.
 ### Forms
@@ -57,6 +58,7 @@ This page displays serveral cards. Each card is a detailed how-to guide on an in
 The workouts are created as seperate entries in a SQL table so that they can be assigned to one or more workout plans.
 ### Profile Page 
 Registered users will have the option to view their profile page. This page will display their details (name, username etc), allow them to save shipping address details and to view their previous order details. 
+
 ### Stripe 
 #### Integrating Stripe
 * [Stripe Documentation](https://stripe.com/docs/payments/accept-a-payment?integration=elements)
@@ -68,16 +70,31 @@ We only confirm the order if the payment_intent from Stripe is confirmed as suce
 We are using the Stripe Test Interface so the credit card entry form can take a card number of 424242424242 and also use this repeating sequence for the date, CVC number and Zip code.
 We secure communication with Stripe by using a combination of a private and public key. These are configured as part of the site's environment variables.
 
-#### Creating a Web Hook Endpoint
+### Webhook
 A webhook is a means of providing a form of asynchronous confirmation from an external server. We send an event to the server and when it is finished processsing the event it confirms success or failure by calling our webhook and communicating the status of the process.
-The Fit For Life site usea a single webhook at https://8000-b..25............5.ws-eu01.gitpod.io/**checkout/wh**
+The Fit For Life site usea a single webhook at checkout/**checkout/wh**
 To additionally secure the webhhok we use a webhook secret provided by site. This is used to sign the incomming data so that any modification of the message is easily detected. The signing process also incorporates a time stamp to prevent replay attacks.
 Strip provide an interface for both testing the weebhook and checking the status of webhooks sent from Stripe toour site.
 ![Stripe Logs](diagrams/strip_intent_logs.png)
-* We can review logs here: https://dashboard.stripe.com/test/logs/
+* We can review logs and test intents on: https://dashboard.stripe.com/test/logs/ with webhook testing available at (https://stripe.com/docs/webhooks/test)
+![Stripe Webhook Testing](diagrams/testwebhooks.png)
 
 #### Testing a Web Hook Endpoint using CLI
+For more complex problems with webhooks it is possible to test locally using the Srtipe CLI
 * [Stripe Documentation](https://stripe.com/docs/webhooks/test)
+
+# Database Design
+## Key relationships
+![Main Database Design](diagrams/maindiagramcompact.png)
+
+## Main Tables
+### Products Table
+![Products Table Design](diagrams/products_product.1degree.png)
+### Plans Table
+![Plans Table Design](diagrams/plans_plan.1degree.png)
+### User Profile Table
+![User Profile Table Design](diagrams/profiles_userprofile.1degree.png)
+
 
 # Development
 Several steps were taking setting up so that this project could be developed:
@@ -90,7 +107,7 @@ EMAIL_HOST_USER	| Sending notification emails
 EMAIL_HOST_PASSWORD |	To login for sending notification emails	
 STRIPE_PUBLIC_KEY |	Needed for the stripe payment system	
 STRIPE_SECRET_KEY |	Needed for the stripe payment system	
-STRIPE_WH_SECRET   |	Needed for the stripe payment system	
+STRIPE_WH_SECRET   |	Needed by the webhook for encryption of the payment confirmation
 AWS_ACCESS_KEY_ID | Needed for the S3 Bucket static files	
 AWS_SECRET_ACCESS_KEY | Needed for the S3 Bucket static files	
 AWS	Deployment only | to tell Django to use s3 instead of local static files	
@@ -107,67 +124,31 @@ I used the following [guide](https://github.com/codingforentrepreneurs/Guides/bl
 ### Creating the Heroku Postgresql app
 * heroku login -i
 * heroku apps:create django-ffl-app --region eu
-* checks its status with: heroku apps
-* Now go to https://dashboard.heroku.com/apps/django-ffl-app/resources
-* In the Add on section search for heroku-postgresql
-* Install it then go to https://dashboard.heroku.com/apps/django-ffl-app/settings and click reveal config vars
-* You can find the Database URL here and it will be something like; postgres://bmhukkzcvbrudo:f0...09b91a12d869da.........e90906bf522e82621b6a4b7a3...92d8a209@ec2-54-246-115-40.eu-west-1.compute.amazonaws.com:5..2/dcr08.......
-* Now install pip3 install dj_database_url
-* heroku config or heroku config -a django-ffl-app  will reveal the database string also
-* Add the following to the top of the settings.py file: import dj_database_url
-* Add the following definition for the postgreSQL cloud hosted database: <br>/
+* I checked its status with: heroku apps
+* I then went to https://dashboard.heroku.com/apps/django-ffl-app/resources
+* In the Add on section I searched for heroku-postgresql
+* After install I went to https://dashboard.heroku.com/apps/django-ffl-app/settings and clicked reveal config vars to see the default environment variables.
+* The Database URL will be available here and it will be something like; postgres://bmhukkzcvbrudo:f0...09b91a12d869da.........e90906bf522e82621b6a4b7a3...92d8a209@ec2-54-246-115-40.eu-west-1.compute.amazonaws.com:5..2/dcr08.......
+* I installed an app for support of the postgres database inteface with:  pip3 install dj_database_url
+* You can also find the postres database reference directly on the heroku cli by using: heroku config -a django-ffl-app: this will reveal the database string also
+* I then added the necessary include to the top of the settings.py file: import dj_database_url
+* I added a database definition for the postgreSQL cloud hosted database: <br>/
 `DATABASES = {     'default':  dj_database_ur.parse('postgres://bmhu......do:f0efd09b91a1...............90906bf522e82621b6a4b7a3712c992d8a209@ec2-54-246-115-40.eu-west-1.compute.amazonaws.com:..32/dc......67p5k70')`
 `}`<br>/
-* Disable the requirement to collect static files: heroku config:set DISABLE_COLLECTSTATIC=1
-* we now need to create a Procfile with the following content: <br>/
+* I initially disabled the requirement to collect static files: heroku config:set DISABLE_COLLECTSTATIC=1. This will later be enabled when AWS is set up to serve the static files.
+* I then created a Procfile with the following content: <br>/
 `web: gunicorn ffl.wsgi:application`<br>/
-* Add the Heroku Hostname to our settings.py file: ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com']"
-* git add Procfile
-* git add settings.py 
-* git commit -m "Adding Procfile for Heroku and heroku hostname to allowed apps"
-* we can now push to Heroku with: git push heroku master
+* I added the heroku hostname to the allowed hosts section of my settings.py file: ALLOWED_HOSTS = ['django-ffl-app.herokuapp.com']"
+* After commiting all of these I pushed the changes: git push heroku master
 
 ### Connecting to Heroku Database from the Heroku CLI:
+It is often usefull to connect to the Heroku database from your local machine or gitpod. Heroku provide a postgres interface throught their CLI.
 * heroku pg:psql
 * It will select the default database
 * You can issue SQL commands:  select product_name from public.products_product;
 * A guide to using the cli is [Here](https://devcenter.heroku.com/articles/heroku-postgresql#using-the-cli)
 * Dumping Database in plain Text format: [Here](https://stackoverflow.com/questions/22887524/how-can-i-get-a-plain-text-postgres-database-dump-on-heroku)
 
-## MySQL
-### Setting up MySQL with Python and Django
-* sudo apt-get install libmysqlclient-dev
-* sudo apt-get install libmysqlclient-dev python-dev
-* pip3 install pymysql
-* pip install mysqlclient
-
-### Logging in to MySQL
-* pip install mysqlclient
-* sudo mysql -u root
-* SHOW DATABASES;
-* CREATE DATABASE ffl_database; #create a new database
-* CREATE USER 'djangouser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'djangouser90';
-* GRANT ALL ON ffl_database.* TO 'djangouser'@'localhost';
-* Add the following to the settings.py<br/>
-`DATABASES = {`<br/>
-    `'default': {`<br/>
-        `'ENGINE': 'django.db.backends.mysql',`<br/>
-        `'OPTIONS': {`<br/>
-            `'read_default_file': '/etc/mysql/my.cnf',`<br/>
-        `},`<br/>
-    `}`<br/>
-`}`<br/>
-* sudo nano /etc/mysql/my.cnf
-* Add this:
-`[client]`<br/>
-`database = hello_world`<br/>
-`user = djangouser`<br/>
-`password = djangouser90`<br/>
-`default-character-set = utf8`<br/>
-* Restart the mysql server
-* sudo systemctl daemon-reload
-* sudo systemctl restart mysql
-* MariaDB's Strict Mode fixes many data integrity problems in MariaDB, such as data truncation upon insertion, by escalating warnings into errors. It is strongly recommended you activate it. [See here](https://docs.djangoproject.com/en/3.1/ref/databases/#mysql-sql-mode): 
 
 
 # Technologies Used

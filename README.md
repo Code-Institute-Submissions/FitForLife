@@ -26,14 +26,14 @@ The site was designed with three users in mind: admin, registered user and non-r
 
 ## Mock-Ups 
 I created the Mock-Ups for the website by using Figma. There are Mock-ups for all devices in the following [folder]. Please see the main pages below.
-###### Products page
+#### Products page
 ![Products Page](/Readme/MockUps/FFLMocupAllProductsPage.jpg) 
-###### Individual Product page
-![Individual Products Page](/Readme/MockUps/FFLMocupProductPage.jpg)
-###### Profile page
-![Profile Page](/Readme/MockUps/FFLMocupAllProfilePage.jpg)
-###### Products page
-![Plans Page](/Readme/MockUps/FFLMocupPlansPage.jpg)
+#### Individual Product page
+![Individual Products Page](/Readme/MockUps/FFLMockupProductPage.jpg)
+#### Profile page
+![Profile Page](/Readme/MockUps/FFLMockupProfilePage.jpg)
+#### Plans page page
+![Plans Page](/Readme/MockUps/FFLMochupPlansPage.jpg)
 
 # Features
 Customer Facing Pages: Fit For Life consists of a Homepage, products page, Individual Products Page, Plans Page, Plan Workout Page, Shopping Cart Page, Checkout Page and Profile page. The website is fully responsive.

@@ -1,9 +1,9 @@
 # Fit For Life - Milestone 4 Project 
-Fit For Life is an e-commerce website built using Django and Stripe. Fit For Life sells products and a membership which allows registered users to view fitness plans and receive a member discount. Fit For Life caters for all individuals with a selection of fitness plans from muscle building to weightloss to general fitness. The plans can be viewed on the website once a user purchases a membership. Both non-registered and registered users can view and purchase products such as protein bars and shakes. Registered users will have a profile where they can view their membership plan and previous orders.
+Fit For Life is an e-commerce website built using Django and Stripe. Fit For Life sells premium branded products and a membership which allows registered users to view fitness plans and receive generous member discount on our  exclusive range of specialised products. Fit For Life caters for all individuals with a selection of fitness plans from muscle building to weightloss to general fitness. The plans can be viewed on the website once a user purchases a membership. Both non-registered and registered users can view and purchase products such as protein bars and shakes. Registered users will have a profile where they can view their membership plan and previous orders.
 
 # UX
 ## Project Goals
-Create a fully fucnctional website using Django and Stripe that allows user to register to avail of a benefit while also allowing non-registered users the option to browse the site and make purchases. The overall goal for this website is to allow visitors to purchase products and encourage them to register by offering a discount and exclusive plans. Registered users have their own profile where they can view their membership details, view past orders and save delivery information. The design of this website was to keep it very simple yet eye-catching by incorporating in the bright orange which contrasts nicely with the black and grey used through-out the site.  I created a logo for the website and placed it on all the products as well as using the same orange colour in the product images to keep everything in theme. I used the Beba Neue font from
+Create a fully fucnctional website using Django and Stripe that allows user to register to avail of a benefit while also allowing non-registered users the option to browse the site and make purchases. The overall goal for this website is to allow visitors to purchase products and encourage them to purchase membership by offering a significant discount and exclusive plans. Registered users have their own profile where they can view their membership details, view past orders and save delivery information. The design of this website was to keep it very simple yet eye-catching by incorporating in the bright orange which contrasts nicely with the black and grey used through-out the site.  I created a logo for the website and placed it on all the products as well as using the same orange colour in the product images to keep everything in theme. I used the Beba Neue font from
 Google Fonts which I believe suits the fitness industry. 
 
 ## User Stories
@@ -36,11 +36,12 @@ I created the Mock-Ups for the website by using Figma. There are Mock-ups for al
 ![Plans Page](/Readme/MockUps/FFLMocupPlansPage.jpg)
 
 # Features
-Fit For Life comprises of a Homepage, products page, Individual Products Page, Plans Page, Plan Workout Page, Shopping Cart Page, Checkout Page and Profile page. The website is fully responsive.
+Customer Facing Pages: Fit For Life consists of a Homepage, products page, Individual Products Page, Plans Page, Plan Workout Page, Shopping Cart Page, Checkout Page and Profile page. The website is fully responsive.
+Admin Facing Pages: In addition to the user facing pages, an admin or superuser has access to a number of specific pages to assist administartion of the site. Access is also provided to the Django provided administration interface for lower level control of data.
 ### NavBar
 This responsive  feature allows users to move from page to page. When a user is logged in it displays an option to visit a page called " MyProfile". There is also a link to "Logout" if a user is logged in. In the case that no user is logged in the NavBar simply displays a "Login/Register" Tab. For Mobile and Tablet devices -  a hamburger menu on the top-left expands a menu with links to all of the main pages. The navbar stays fixed at the top of each page for easy navigation at all times.
 ### Forms
-Django Crsipy Forms were used for all forms on Fit For Life. These were installed using the following command - pip3 install django-crispy-forms. These forms allow users to submit their data and it then gets stored in the database or sent to email associated with the website. 
+Django Crsipy Forms were used for the majority of forms on Fit For Life; support for these was provided by the crispy forms app and was installed using the following command - pip3 install django-crispy-forms. These forms allow users to submit their data and it then gets stored in the database or sent to email associated with the website. 
 ### Footer
 The Footer has links to the associated social media pages along with the credits for the web designer.
 ### Home Page
@@ -53,20 +54,28 @@ The products page displays all products for sale on Fit For Life - this can be b
 The plans page displays three cards, one for each different style of plan: weightloss, muscle building and cardio. Javascript is used on the card to display some details on the plan when the card is hovered over. There is a see more button which allows users to see each plan workout if they are a registered member. 
 ### Plan Workout Page
 This page displays serveral cards. Each card is a detailed how-to guide on an individual excercise. There is also an image relating to the excercise on each card. It is important to note that only registered users who have purchased a membership can view this page. 
+The workouts are created as seperate entries in a SQL table so that they can be assigned to one or more workout plans.
 ### Profile Page 
 Registered users will have the option to view their profile page. This page will display their details (name, username etc), allow them to save shipping address details and to view their previous order details. 
 ### Stripe 
 #### Integrating Stripe
 * [Stripe Documentation](https://stripe.com/docs/payments/accept-a-payment?integration=elements)
-Stripe works with what are called payment intents. The process will be that when a user hits the checkout page the checkout view will call out to stripe and create a payment intent for the current amount of the shopping bag. When stripe creates it. it'll also have a secret that identifies it. Which will be returned to us and we'll send it to the template as the client secret variable. Then in the JavaScript on the client side.
-We'll call the confirm card payment method from stripe js. Using the client secret which will verify the card number.
-And enter the stripe test card number. 424242424242, You can use any CVC, any date in the future for the expiration date. And any five-digit postal code.<br/>
+Stripe works with what are called payment intents. The process will be that when a user clicks a link on the checkout page the checkout view will begin a series of transactions with Stripe. We exchange the following intents:
+* balance.available
+* payment_intent.succeeded
+* charge.succeeded
+We only confirm the order if the payment_intent from Stripe is confirmed as sucessful from Stripe. This is done using a webhook (see below) on the Fit For Life site which listens for the encoded response from the Stripe server.
+We are using the Stripe Test Interface so the credit card entry form can take a card number of 424242424242 and also use this repeating sequence for the date, CVC number and Zip code.
+We secure communication with Stripe by using a combination of a private and public key. These are configured as part of the site's environment variables.
+
 #### Creating a Web Hook Endpoint
-* Add a new endpoint with the URL of your site: https://8000-b..25............5.ws-eu01.gitpod.io/**checkout/wh**
-* Register to receive all events and add the endpoint.
-* This will take us to a page where we can reveal the web hook secret key. Add this to your: https://gitpod.io/settings/
-* You can send a test event from this page: https://dashboard.stripe.com/test/webhooks/
+A webhook is a means of providing a form of asynchronous confirmation from an external server. We send an event to the server and when it is finished processsing the event it confirms success or failure by calling our webhook and communicating the status of the process.
+The Fit For Life site usea a single webhook at https://8000-b..25............5.ws-eu01.gitpod.io/**checkout/wh**
+To additionally secure the webhhok we use a webhook secret provided by site. This is used to sign the incomming data so that any modification of the message is easily detected. The signing process also incorporates a time stamp to prevent replay attacks.
+Strip provide an interface for both testing the weebhook and checking the status of webhooks sent from Stripe toour site.
+![Stripe Logs](diagrams/strip_intent_logs.png)
 * We can review logs here: https://dashboard.stripe.com/test/logs/
+
 #### Testing a Web Hook Endpoint using CLI
 * [Stripe Documentation](https://stripe.com/docs/webhooks/test)
 

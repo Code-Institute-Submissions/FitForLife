@@ -76,8 +76,9 @@ The Fit For Life site usea a single webhook at checkout/**checkout/wh**
 To additionally secure the webhhok we use a webhook secret provided by site. This is used to sign the incomming data so that any modification of the message is easily detected. The signing process also incorporates a time stamp to prevent replay attacks.
 Strip provide an interface for both testing the weebhook and checking the status of webhooks sent from Stripe toour site.
 ![Stripe Logs](diagrams/strip_intent_logs.png)
-* We can review logs and test intents on: https://dashboard.stripe.com/test/logs/ with webhook testing available at (https://stripe.com/docs/webhooks/test)
-![Stripe Webhook Testing](diagrams/testwebhooks.png)
+* We can review logs and test intents on: https://dashboard.stripe.com/test/logs/
+* Webhook testing is available at (https://stripe.com/docs/webhooks/test) <br>/
+![Stripe Webhook Testing](diagrams/testwebhook.png)
 
 #### Testing a Web Hook Endpoint using CLI
 For more complex problems with webhooks it is possible to test locally using the Srtipe CLI

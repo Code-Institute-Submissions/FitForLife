@@ -184,16 +184,28 @@ The test strategy for this project uses Django's built in test framework describ
 Each Application has a test folder with tests for Views, Models and Forms. Tests can be invoked through a shell script as follows:
 #!/bin/bash
 source ../shell_scripts/environment.sh
+
+
 export USE_TEST_DATABASE="True"
 unset DATABASE_URL
+
 if [ $# -eq 1 ]; then
+
     echo "Running in Verbose mode"
+    
     VERBOSE=1
 fi
+
 cd ..
+
 if [ "$VERBOSE"="1" ]; then
+
     python3 manage.py test <list of applications> -v 2
+    
 else
+
     python3 manage.py test <list of applications>
+    
 fi   
+
 The tests can run in silent or verbose mode.

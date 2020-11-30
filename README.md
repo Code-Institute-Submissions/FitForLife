@@ -181,12 +181,14 @@ It is often usefull to connect to the Heroku database from your local machine or
 
 # Testing
 The test strategy for this project uses Django's built in test framework described in the Django documentation https://docs.djangoproject.com/en/3.1/topics/testing/#
+
 Each Application has a test folder with tests for Views, Models and Forms. Tests can be invoked through a shell script as follows:
+
 #!/bin/bash
 source ../shell_scripts/environment.sh
 
-
 export USE_TEST_DATABASE="True"
+
 unset DATABASE_URL
 
 if [ $# -eq 1 ]; then

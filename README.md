@@ -176,7 +176,8 @@ It is often usefull to connect to the Heroku database from your local machine or
 * [Django](https://djangoproject.com/) - Django is used as main python framework.
 * [MySQL](https://www.mysql.com/) - Used as the main database technology.
 * [Jinga](https://jinja.palletsprojects.com/en/2.11.x/) - Used as the main templating language for template manipulation.
-* [Heroku](https://signup.heroku.com/?c=70130000000NeLCAA0&gclid=Cj0KCQjw-uH6BRDQARIsAI3I-UcV96h-n1NbhCxrdQnrMSjNQ72hwiisldeoifqoNJDw0Bf6ekDhtvwaAq5iEALw_wcB) - Used to host the website.
+* [Heroku](https://signup.heroku.com/?c=70130000000NeLCAA0&gclid=Cj0KCQjw-uH6BRDQARIsAI3I-UcV96h-n1NbhCxrdQnrMSjNQ72hwiisldeoifqoNJDw0Bf6ekDhtvwaAq5iEALw_wcB) - Used to host the Website and Database.
+* [AWS/S3](https://s3.console.aws.amazon.com) - Used to host static files and media.
 
 # Testing
 The test strategy for this project uses Django's built in test framework described in the Django documentation https://docs.djangoproject.com/en/3.1/topics/testing/#
@@ -191,8 +192,8 @@ if [ $# -eq 1 ]; then
 fi
 cd ..
 if [ "$VERBOSE"="1" ]; then
-    python3 manage.py test products -v 2
+    python3 manage.py test <list of applications> -v 2
 else
-    python3 manage.py test products
+    python3 manage.py test <list of applications>
 fi   
 The tests can run in silent or verbose mode.

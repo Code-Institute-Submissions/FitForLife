@@ -73,7 +73,9 @@ We secure communication with Stripe by using a combination of a private and publ
 ### Webhook
 A webhook is a means of providing a form of asynchronous confirmation from an external server. We send an event to the server and when it is finished processsing the event it confirms success or failure by calling our webhook and communicating the status of the process.
 The Fit For Life site usea a single webhook at **checkout/checkout/wh.**
+<br>/
 ![All Products Page](https://github.com/johnosbb/FullStackDeveloper/blob/master/webhookflow.jpg)
+<br>/
 To additionally secure the webhhok we use a webhook secret provided by site. This is used to sign the incomming data so that any modification of the message is easily detected. The signing process also incorporates a time stamp to prevent replay attacks.
 Strip provide an interface for both testing the weebhook and checking the status of webhooks sent from Stripe toour site.
 ![Stripe Logs](diagrams/strip_intent_logs.png)

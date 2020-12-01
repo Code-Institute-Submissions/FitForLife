@@ -66,6 +66,7 @@ Stripe works with what are called payment intents. The process will be that when
 * balance.available
 * payment_intent.succeeded
 * charge.succeeded
+
 We only confirm the order if the payment_intent from Stripe is confirmed as sucessful from Stripe. This is done using a webhook (see below) on the Fit For Life site which listens for the encoded response from the Stripe server.
 We are using the Stripe Test Interface so the credit card entry form can take a card number of 424242424242 and also use this repeating sequence for the date, CVC number and Zip code.
 We secure communication with Stripe by using a combination of a private and public key. These are configured as part of the site's environment variables.

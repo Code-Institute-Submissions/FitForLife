@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from django.conf import settings
 import logging
+from django.conf.urls.static import static
 
 # A default Handler for pages not found
 # this uses the templates in templates/404.html

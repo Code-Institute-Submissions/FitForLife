@@ -298,7 +298,7 @@ else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DEFAULT_FROM_EMAIL = str(EMAIL_HOST_USER)
 
-if DEBUG:
+if development == 'True':
     logger.warn('development : ' + str(development))
     logger.warn('heroku : ' + str(heroku))
     logger.warn('heroku database: ' + str(heroku_postgres))

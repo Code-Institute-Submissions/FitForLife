@@ -88,6 +88,35 @@ Strip provide an interface for both testing the weebhook and checking the status
 For more complex problems with webhooks it is possible to test locally using the Srtipe CLI
 * [Stripe Documentation](https://stripe.com/docs/webhooks/test)
 
+# Application Structure
+* - model, data associated with the page
+* - view, how we present the data to the user through html
+* - urls, how the site routes the user to the relevant page
+* - forms, (optional) how the user can input data
+## Applications
+
+### ffl - main application
+
+### about - An about page with a contact form
+### cart - facilitates orders and purchase
+### checkout - pages associated with secure payment
+### home - default homepage
+
+### plans - Pages exclusive to members
+### workouts - individual worksout instructions detailed used by the plans page
+### planowrkouts - established many to many relationship between plans and workouts
+
+### profile - user profile data
+### products - pages for products, product detail, and product admin
+
+### Utility scripts (will not appear in final commit)
+* run.sh - runs the application locally
+* sync.sh - pulls the latest git
+* commit.sh - pushes to the repository
+
+### diagrams - database diagrams for reference
+
+
 # Database Design
 ## Key relationships
 ![Main Database Design](diagrams/maindiagramcompact.png)

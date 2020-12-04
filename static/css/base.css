@@ -296,6 +296,13 @@ body {
   color: #222222;
 }
 
+:valid, .ok {
+    color: green;
+}
+:invalid, .error {
+    color: red;
+}
+
 .about{
 	cursor: pointer;
 	background-color: #ff914d;

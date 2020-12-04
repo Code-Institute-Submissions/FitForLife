@@ -49,9 +49,7 @@
                 <h1>Let's Shop!   <i class="fas fa-shopping-bag"></i></h1>
             </div>
             <div class="col-6 center mt-3">
-                <button type="button" class="btn btn-block btn-product mt-2">
-                    <a href="{% url 'products' %}">Shop All Products</a>
-                </button>
+                <a type="button" class="btn btn-block btn-product mt-2" href="{% url 'products' %}">Shop All Products</a>
             </div>
             <div class="col-12">
             <img class="responsive" src="{{ MEDIA_URL }}shopping.jpg">

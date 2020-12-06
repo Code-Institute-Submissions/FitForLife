@@ -45,6 +45,8 @@ body {
   width: 100%;
 }
 
+
+
 .col-12{
     justify-content: center;
 }
@@ -246,6 +248,9 @@ body {
   padding-top: 20px;
 }
 
+
+
+/* -- */
 .container input,
 .container textarea {
   /* to create space for placing icon*/

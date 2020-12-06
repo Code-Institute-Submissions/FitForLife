@@ -19,7 +19,7 @@ class TestProductViews(TestCase):
         )
         
 
-    def test_get_all_Products_page(self):
+    def test_get_all_products_page(self):
         """ get Product page response good """
         # filter by All
         response = self.client.get(
@@ -45,7 +45,7 @@ class TestProductViews(TestCase):
         self.assertTemplateUsed(response, "products/products.html")
 
     # return 404 if url incorrect
-    def test_get_all_Products_404(self):
+    def test_get_all_products_404(self):
         response = self.client.get("/products/doesnotexist")
         self.assertEqual(response.status_code, 404)
         self.assertTemplateUsed(response, "404.html")

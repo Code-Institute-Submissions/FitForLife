@@ -64,6 +64,9 @@ def checkout(request):
         order_form = OrderForm(form_data)
         if order_form.is_valid():
             order = order_form.save(commit=False)
+            profile = UserProfile.objects.get(user=request.user) #new logic to get profile
+            order.has_discount = profile.is_member
+            order.user_profile = profile
             pid = request.POST.get('client_secret').split('_secret')[0]
             order.stripe_pid = pid
             order.original_cart = json.dumps(cart)
@@ -134,6 +137,7 @@ def checkout(request):
                     'street_address1': profile.default_street_address1,
                     'street_address2': profile.default_street_address2,
                     'county': profile.default_county,
+                    'has_discount': profile.is_member,
                 })
             except UserProfile.DoesNotExist:
                 order_form = OrderForm()

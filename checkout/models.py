@@ -1,5 +1,5 @@
 import uuid
-
+from decimal import Decimal
 from django.db import models
 from django.db.models import Sum
 from django.conf import settings
@@ -37,6 +37,7 @@ class Order(models.Model):
     original_cart = models.TextField(null=False, blank=False, default='')
     stripe_pid = models.CharField(max_length=254, null=False, blank=False,
                                   default='')
+    has_discount = models.BooleanField(default=False)
 
     def _generate_order_number(self):
         """
@@ -56,12 +57,11 @@ class Order(models.Model):
             self.delivery_cost = self.order_total * sdp / 100
         else:
             self.delivery_cost = 0
-        # profile = UserProfile.objects.get(user=self.user_profile_id)
-        # if profile.is_member:
-        #     self.discount = -(self.order_total * Decimal(0.20))
-        #     self.discount = round(discount, 2)
-        # else:
-        #     self.discount = 0 
+        if self.has_discount:
+            self.discount = -(self.order_total * Decimal(0.20))
+            self.discount = round(self.discount, 2)
+        else:
+            self.discount = 0 
         self.grand_total = self.order_total + self.discount + self.delivery_cost
         #self.discount = self.lineitems.aggregate(
         #     Sum('lineitem_discount'))['lineitem_discount__sum'] or 0

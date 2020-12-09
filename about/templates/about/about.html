@@ -80,28 +80,28 @@
             <div class="form-group">
                <label for="name"></label>
                {{ form.name.errors }}
-               <input type="text" class="form-control" id="id_name" name="name" pattern=".{3,}" title="Please type three or more characters" placeholder="Full Name" required>
+               <input type="text" class="form-control" id="name" name="name" pattern=".{3,}" title="Please type three or more characters" placeholder="Full Name" required>
                <!--placing icon using a span element-->
                <span class="icon fa fa-user fa-lg"></span>
             </div>
             <div class="form-group">
                <label for="email"></label>
                {{ form.email.errors }}
-               <input type="email" class="form-control" id="id_email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Email Address" required>
+               <input type="email" class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Email Address" required>
                <span class="icon fa fa-envelope fa-lg"></span>
             </div>
             <div class="form-group">
                <label for="subject"></label>
                {{ form.subject.errors }}
-               <input type="text" class="form-control" id="id_subject" name="subject" pattern=".{8,}" title="Please type eight or more characters" placeholder="Subject" required>
+               <input type="text" class="form-control" id="subject" name="subject" pattern=".{8,}" title="Please type eight or more characters" placeholder="Subject" required>
                <span class="icon fa fa-pencil fa-lg"></span>
             </div>
             <div class="form-group">
                <label for="message"></label>
                {{ form.message.errors }}
-               <textarea class="form-control" rows="5" cols="30"  name="message" id="id_message" placeholder="Type up to ten charachters for your message" pattern=".{10,}" title="10 or more characters" style="width:100%"></textarea>
+               <textarea class="form-control" rows="5" cols="30"  name="message" id="message" placeholder="Type up to ten charachters for your message" pattern=".{10,}" title="10 or more characters" style="width:100%"></textarea>
                <span class="icon-textarea fa fa-paper-plane fa-lg "></span>
-             <!-- <span class="textAreaErrorMessage" id="id_text_error">Enter up to 10 charachters.</span>--> 
+               <span class="textAreaErrorMessage" id="text_error">Enter up to 10 charachters.</span>
             </div>
             <div class="col-sm-12 text-center">
                <button type="submit" id="id_submit_button" class="btn btn-default">Submit</button>
@@ -122,13 +122,12 @@
 <script type="text/javascript">
 
 const submit_button = document.getElementById('id_submit_button');
-const message_box = document.getElementById('id_message');
-const text_area_error = document.getElementById('id_text_error');
+const message_box = document.getElementById('message');
+const text_area_error = document.getElementById('text_error');
 submit_button.disabled=true;
 text_area_error.visible=false;
 
-jQuery('#id_message').on('keyup', function() {
-   // jQuery(this).parent().append('<p>' + this.checkValidity() + ' ' + this.validity.patternMismatch + '</p>'); 
+jQuery('#message').on('keyup', function() {
       if(validateTextarea(message_box) === true)
          submit_button.disabled=false;
       else
@@ -136,18 +135,31 @@ jQuery('#id_message').on('keyup', function() {
 });
 
 
+function setErrorString(value) {
+
+   span = document.getElementById("text_error");
+   txt = document.createTextNode(value);
+   span.innerHTML="";
+   span.appendChild(txt);
+}
+
 function validateTextarea(textbox) {
         var errorMsg = "Please match the format requested.";
 
         if(textbox.value === "")
         {
-            text_area_error.value = "Message cannot be blank.";
+            setErrorString("Message cannot be blank.");
             return false;
         }
         if(textbox.value.length < 10)
         {
-            text_area_error.value = "Type at least 10 charachters.";
+            setErrorString("Type at least 10 charachters.");
             return false;
+        }
+        if(textbox.value.length > 10)
+        {
+            setErrorString(" ");
+            return true;
         }
       return true;
     }

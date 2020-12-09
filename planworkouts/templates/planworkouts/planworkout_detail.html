@@ -36,11 +36,6 @@
                         </a>
                     </p>
                     {% endif %}
-                    {% if planworkout.rating %}
-                        <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ planworkout.rating }} / 5</small>
-                    {% else %}
-                        <small class="text-muted">No Rating</small>
-                    {% endif %}
                     {% if request.user.is_superuser %}
                         <small class="ml-3">
                             <a href="{% url 'edit_planworkout' planworkout.id %}">Edit</a> | 

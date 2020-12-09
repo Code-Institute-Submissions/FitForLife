@@ -10,7 +10,6 @@ class ProductAdmin(admin.ModelAdmin):
         'product_name',
         'category',
         'price',
-        'rating',
         'image',
     )
 

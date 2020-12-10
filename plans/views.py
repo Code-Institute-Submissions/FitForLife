@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.db.models.functions import Lower
-
+from django.conf import settings
 from .models import Plan
 from profiles.models import UserProfile
 from .forms import PlanForm
@@ -137,8 +137,11 @@ def delete_plan(request, plan_id):
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only administrative users can do that.')
         return redirect(reverse('home'))
-
-    plan = get_object_or_404(Plan, pk=plan_id)
-    plan.delete()
-    messages.success(request, 'Plan deleted!')
-    return redirect(reverse('plans'))
+    if settings.EVALUATION_MODE == "Active":
+        messages.error(request, 'Sorry, you are in evaluation mode. This function is restricted.')
+        return redirect(reverse('home'))
+    else:    
+        plan = get_object_or_404(Plan, pk=plan_id)
+        plan.delete()
+        messages.success(request, 'Plan deleted!')
+        return redirect(reverse('plans'))

@@ -35,48 +35,48 @@ When testing the contact form I found that the gmail SMTP server was blocking em
 
 ## Testing User Stories:
 ### Admin User
-**As a site Admin I want to be able to create, edit and delete new products and plans**
-Once an admin user signs in they can select a drop down called Add Product from “my account” on the Navbar which brings them to a page only accessible to admin/superusers where they can add a new product
-![User Stories](UserStories/admin1.JPG)
-**As an admin I want to be able to edit/update products and plans.**
-Admin/Superusers are able to edit/update product information straight from the products page - once they have clicked the See-More button, they are brought to the products page where they have an option to edit the product
-Similarly with the plans page: a Admin/Superuser can edit or delete a plan. More low level modification of plans and associated workouts is facilitated in the Admin portion of the site which can be reached by an Admin/Superuser from the main menu.
-![User Stories](UserStories/admin2.JPG)
-**As an admin I want the ability to delete products/plans.**
-Similar to the above - admin/superusers can delete products on the individual product page
-![User Stories](UserStories/admin3.JPG)
-An admin/superusers can delete and edit plans on the individual plans page.
-![User Stories](UserStories/admin4.JPG)
+**As a site Admin I want to be able to create, edit and delete new products and plans**  
+Once an admin user signs in they can select a drop down called Add Product from “my account” on the Navbar which brings them to a page only accessible to admin/superusers where they can add a new product  
+![User Stories](UserStories/admin1.JPG)  
+**As an admin I want to be able to edit/update products and plans.**  
+Admin/Superusers are able to edit/update product information straight from the products page - once they have clicked the See-More button, they are brought to the products page where they have an option to edit the product  
+Similarly with the plans page: a Admin/Superuser can edit or delete a plan. More low level modification of plans and associated workouts is facilitated in the Admin portion of the site which can be reached by an Admin/Superuser from the main menu.  
+![User Stories](UserStories/admin2.JPG)  
+**As an admin I want the ability to delete products/plans.**  
+Similar to the above - admin/superusers can delete products on the individual product page  
+![User Stories](UserStories/admin3.JPG)  
+An admin/superusers can delete and edit plans on the individual plans page.  
+![User Stories](UserStories/admin4.JPG)  
 ### Registered User
 **As a registered user I want to be able to login.**
-Registered users have the option to login by clicking on “my account” on the Navbar.
-![User Stories](UserStories/reguser1.JPG)
-They are then brought to the “sign in” page
-![User Stories](UserStories/reguser2.JPG)
-**As a registered user I want to be able to update and save my information.**
-Registered users have the option to update and save their delivery information on their profile page.
-![User Stories](UserStories/reguser3.JPG)
-**As a registered user I want to be able to see my previous purchases.**
-Registered users can also view their previous purchases on their profile page under the order history section.
-![User Stories](UserStories/reguser4.JPG)
+Registered users have the option to login by clicking on “my account” on the Navbar.  
+![User Stories](UserStories/reguser1.JPG)  
+They are then brought to the “sign in” page  
+![User Stories](UserStories/reguser2.JPG)  
+**As a registered user I want to be able to update and save my information.**  
+Registered users have the option to update and save their delivery information on their profile page.  
+![User Stories](UserStories/reguser3.JPG)  
+**As a registered user I want to be able to see my previous purchases.**  
+Registered users can also view their previous purchases on their profile page under the order history section.  
+![User Stories](UserStories/reguser4.JPG)  
 **As a registered user who has purchased membership I want to be able to view fitness plans.**
-Registered users can view a range of fitness plans that are exclusive to users who have purchased membership; these are available to view by clicking on the plans tab.
-![User Stories](UserStories/reguser5.JPG)
-**As a registered user I want to be able to buy products with a member discount.**
-Once a member goes to the checkout, their discount is automatically applied.
-![User Stories](UserStories/reguser6.JPG)
+Registered users can view a range of fitness plans that are exclusive to users who have purchased membership; these are available to view by clicking on the plans tab.  
+![User Stories](UserStories/reguser5.JPG)   
+**As a registered user I want to be able to buy products with a member discount.**  
+Once a member goes to the checkout, their discount is automatically applied.  
+![User Stories](UserStories/reguser6.JPG)  
 ### Non-Registered User
-**As a non-registered user I want to be able to Navigate to different pages of the website .**
-Non-registered users can navigate the site by using the navbar.
-![User Stories](UserStories/nonreguser1.JPG)
-**As a non-registered user I want to be able to browse products.**
-Non-registered users can browse all products by selecting it on the navbar.
-![User Stories](UserStories/nonreguser2.JPG)
-**As a non-registered user I want to be able to buy products.**
-Non-registered users can purchase products but they do not receive a discount.
-![User Stories](UserStories/nonreguser3.JPG)
-**As a non-registered user I want to be able to search for products.**
-Non-registered users can search for products by using the search box on the navbar.
+**As a non-registered user I want to be able to Navigate to different pages of the website .**  
+Non-registered users can navigate the site by using the navbar.  
+![User Stories](UserStories/nonreguser1.JPG)  
+**As a non-registered user I want to be able to browse products.**  
+Non-registered users can browse all products by selecting it on the navbar.  
+![User Stories](UserStories/nonreguser2.JPG)  
+**As a non-registered user I want to be able to buy products.**  
+Non-registered users can purchase products but they do not receive a discount.  
+![User Stories](UserStories/nonreguser3.JPG)  
+**As a non-registered user I want to be able to search for products.**  
+Non-registered users can search for products by using the search box on the navbar.  
 ![User Stories](UserStories/nonreguser4.JPG)
 
 #### Testing Django

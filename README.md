@@ -212,23 +212,4 @@ It is often usefull to connect to the Heroku database from your local machine or
 * [AWS/S3](https://s3.console.aws.amazon.com) - Used to host static files and media.
 
 # Testing
-The test strategy for this project uses Django's built in test framework described in the Django documentation https://docs.djangoproject.com/en/3.1/topics/testing/#
-
-Each Application has a test folder with tests for Views, Models and Forms. Tests can be invoked through a shell script as follows:
-```
-#!/bin/bash
-source ../shell_scripts/environment.sh
-export USE_TEST_DATABASE="True"
-unset DATABASE_URL
-if [ $# -eq 1 ]; then
-    echo "Running in Verbose mode"   
-    VERBOSE=1
-fi
-cd ..
-if [ "$VERBOSE"="1" ]; then
-    python3 manage.py test <list of applications> -v 2
-else
-    python3 manage.py test <list of applications>  
-fi   
-```
-The tests can run in silent or verbose mode.
+In order to assure that the website performs efficiently and the features carry out the functions that they are created to, I conducted several tests which are outlined in a seperate [document](/test.md).

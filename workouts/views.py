@@ -23,9 +23,9 @@ def all_workouts(request):
         if 'sort' in request.GET:
             sortkey = request.GET['sort']
             sort = sortkey
-            if sortkey == 'name':
+            if sortkey == 'workout_name':
                 sortkey = 'lower_name'
-                workouts = workouts.annotate(lower_name=Lower('name'))
+                workouts = workouts.annotate(lower_name=Lower('workout_name'))
             if 'direction' in request.GET:
                 direction = request.GET['direction']
                 if direction == 'desc':
@@ -40,7 +40,7 @@ def all_workouts(request):
                                ("You didn't enter any search criteria!"))
                 return redirect(reverse('workouts'))
 
-            queries = Q(name__icontains=query) | Q(description__icontains=query)
+            queries = Q(workout_name__icontains=query) | Q(description__icontains=query)
             workouts = workouts.filter(queries)
 
     current_sorting = f'{sort}_{direction}'

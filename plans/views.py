@@ -13,7 +13,7 @@ from .forms import PlanForm
 
 def all_plans(request):
     """ A view to show all plans, including sorting and search queries """
-
+    all_plans = Plan.objects.order_by('plan_name')
     plans = Plan.objects.all()
     profile = None
     if request.user.is_authenticated:
@@ -23,19 +23,21 @@ def all_plans(request):
 
     sort = None
     direction = None
+    filtered_plans = all_plans
 
     if request.GET:
         if 'sort' in request.GET:
             sortkey = request.GET['sort']
             sort = sortkey
-            if sortkey == 'name':
-                sortkey = 'lower_name'
-                plans = plans.annotate(lower_name=Lower('name'))
+            #if sortkey == 'plan_name':
+                #sortkey = 'lower_name'
+                #filtered_plans = all_plans.annotate(lower_name=Lower('plan_name'))
             if 'direction' in request.GET:
                 direction = request.GET['direction']
                 if direction == 'desc':
                     sortkey = f'-{sortkey}'
-            plans = plans.order_by(sortkey)
+            filtered_plans = all_plans.order_by(sortkey)
+
 
 
         if 'q' in request.GET:
@@ -45,7 +47,7 @@ def all_plans(request):
                                ("You didn't enter any search criteria!"))
                 return redirect(reverse('plans'))
 
-            queries = Q(name__icontains=query) | Q(description__icontains=query)
+            queries = Q(plan_name__icontains=query) | Q(description__icontains=query)
             plans = plans.filter(queries)
 
     current_sorting = f'{sort}_{direction}'

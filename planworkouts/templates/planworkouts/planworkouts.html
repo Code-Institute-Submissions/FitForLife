@@ -49,22 +49,15 @@
                         <li class="cards_item">
                             <div class="card">
                             <div class="card_image">
-                                {% if planworkouts.image %}
-                                <a href="{% url 'planworkout_detail' planworkout.id %}">
-                                    <img class="card-img-top img-fluid" src="{{ planworkout.image.url }}" alt="{{ planworkout.plan_id }}">
-                                </a>
-                                {% else %}
-                                <a href="{% url 'planworkout_detail' planworkout.id %}">
-                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ planworkout.plan_id }}">
-                                </a>
-                                {% endif %}
                             </div>
-                            <div class="card_content">
-                                <h2 class="card_title">{{ planworkout.plan_id }}</h2>
-                                <p class="card_text">{{ planworkout.workout_id }}</p> 
-                                <p class="card_text">
-                                <button class="btn card_btn">Read More</button>
-                            </div>
+		                    <div class="card_content">
+		                        <h2 class="card_title">{{ planworkout.plan_id }}</h2>
+		                        <p class="card_text">{{ planworkout.workout_id }}</p> 
+		                        <p class="card_text">{{ planworkout.repititions }}</p>
+		                        <p class="card_text">
+		                        <div class="img-text">
+                                        <a href="{% url 'planworkout_detail' planworkout.id %}" class="text-muted text-uppercase">See Details<i class="fas fa-arrow-right"></i></a> 
+                                </div>
                             </div>
                         </li>
                     {% endfor %}

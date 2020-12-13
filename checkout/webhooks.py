@@ -23,8 +23,8 @@ def show_request_data(request):
 @csrf_exempt
 def webhook(request):
     """Listen for webhooks from Stripe"""
-    
-    logger.warn('Webhook called')
+    if webhook_debug == True:   
+        logger.warn('Webhook called')
     # Setup
     wh_secret = settings.STRIPE_WH_SECRET
     stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -36,27 +36,32 @@ def webhook(request):
     event = None
 
     try:
-        logger.warn('Webhook: creating event')
+        if webhook_debug == True:
+            logger.warn('Webhook: creating event')
         event = stripe.Webhook.construct_event(
             payload, sig_header, wh_secret
         )
     except ValueError as e:
-        logger.warn('Webhook:Invalid payload')
+        if webhook_debug == True:
+            logger.warn('Webhook:Invalid payload')
         # Invalid payload
         return HttpResponse(content=e, status=400)
     except stripe.error.SignatureVerificationError as e:
-        logger.warn('Webhook:Invalid signature using wh_s:[' + str(wh_secret) + ']')
-        logger.warn('Webhook:Invalid signature using api_s:[' + str(stripe.api_key) + ']')
+        if webhook_debug == True:
+            logger.warn('Webhook:Invalid signature using wh_s:[' + str(wh_secret) + ']')
+            logger.warn('Webhook:Invalid signature using api_s:[' + str(stripe.api_key) + ']')
         # Invalid signature
         if webhook_debug == False:
             return HttpResponse(content=e, status=400)
     except Exception as e:
-        logger.warn('Webhook:An unknown exception occured')
+        if webhook_debug == True:
+            logger.warn('Webhook:An unknown exception occured')
         if webhook_debug == False:
             return HttpResponse(content=e, status=400)
 
     # Set up a webhook handler
-    logger.warn('Webhook:Calling Stripe Handler')
+    if webhook_debug == True:
+        logger.warn('Webhook:Calling Stripe Handler')
     handler = StripeWH_Handler(request)
 
     # Map webhook events to relevant handler functions
@@ -70,10 +75,12 @@ def webhook(request):
 
     # If there's a handler for it, get it from the event map
     # Use the generic one by default
-    logger.warn('Webhook:Processing event Handler')
+    if webhook_debug == True:
+        logger.warn('Webhook:Processing event Handler')
     event_handler = event_map.get(event_type, handler.handle_event)
 
     # Call the event handler with the event
     response = event_handler(event)
-    logger.warn('Webhook:Completing: ' + str(response))
+    if webhook_debug == True:
+        logger.warn('Webhook:Completing: ' + str(response))
     return response

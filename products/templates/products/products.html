@@ -67,7 +67,7 @@
                            <p class="card-text">€{{ product.price }}</p>
                         </div>
                         <div class="text-right">
-                           <a class="btn btn-block btn-product" href="{% url 'product_detail' product.id %}" href="{% url 'product_detail' product.id %}" style="color:white">See More</a>
+                           <a class="btn btn-block btn-product" href="{% url 'product_detail' product.id %}" style="color:white">See More</a>
                            <i class="lnr lnr-chevron-right pl-2"></i>
                         </div>
                      </div>
@@ -84,12 +84,12 @@
 <div class="page-links">
    {% if products.has_previous %}
    <div class="col-sm-6 col-md-3 center">
-      <a type="button" class="btn btn-block btn-product" href="{% url 'products' %}?page={{ products.previous_page_number }}" class="pag-btn">Previous Page</a>
+      <a class="btn btn-block btn-product" href="{% url 'products' %}?page={{ products.previous_page_number }}" class="pag-btn">Previous Page</a>
    </div>
    {% endif %}
    {% if products.has_next %}
    <div class="col-sm-6 col-md-3 center">
-      <a type="button" class="btn btn-block btn-product mt-2" href="{% url 'products' %}?page={{ products.next_page_number }}">Next Page</a>
+      <a  class="btn btn-block btn-product mt-2" href="{% url 'products' %}?page={{ products.next_page_number }}">Next Page</a>
    </div>
    {% endif %}
 </div>

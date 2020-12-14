@@ -24,8 +24,8 @@
                 <hr class="w-50 mb-1">
             </div>
         </div>
-        <div class="row"> 
-             <div class="plan-container col-10 offset-1">   
+    </div>    
+        <div class="plan-container col-10 offset-1">   
             <div class="row">
             {% for plan in plans %}
                 <div class="col-md-4 col-sm-6 col-xs-12">
@@ -55,6 +55,7 @@
                                                 {{ detail }}
                                                 <br>
                                         {% endfor %}
+                                        </p>
                                     </li>
                                 </ul>
                             </div>
@@ -74,7 +75,6 @@
                 {% endfor %}
             </div>
             {% endblock %}       
-
 
 {% block postloadjs %}
     {{ block.super }}

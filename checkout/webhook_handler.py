@@ -35,10 +35,10 @@ class StripeWH_Handler:
             {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
         try:
             send_mail(
-                subject,
+                subject.rstrip(),
                 body,
                 settings.DEFAULT_FROM_EMAIL,
-                [cust_email]
+                [cust_email,settings.DEFAULT_FROM_EMAIL]
             )
         except Exception as e:
             logger.warn('Problem sending email: ' +  f' Error received | ERROR: {e}')

@@ -28,8 +28,9 @@ def about(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             subject = form.cleaned_data['subject']
-            to_email = ['osullivanccuserjade@gmail.com']
-            from_email = form.cleaned_data['email']
+            from_email = 'osullivanccuserjade@gmail.com'
+            form_email_address=form.cleaned_data['email']
+            to_email = [form_email_address,from_email]
             message = form.cleaned_data['message']
             name = form.cleaned_data['name']
             message_body = message + ' from ' +  str(from_email)

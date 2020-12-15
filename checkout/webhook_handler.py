@@ -27,6 +27,8 @@ class StripeWH_Handler:
         """Send the user a confirmation email"""
         logger.warn('Sending Confirmation Email.')
         cust_email = order.email
+        to_list = [cust_email,settings.DEFAULT_FROM_EMAIL]
+
         subject = render_to_string(
             'checkout/confirmation_emails/confirmation_email_subject.txt',
             {'order': order})
@@ -38,11 +40,11 @@ class StripeWH_Handler:
                 subject.rstrip(),
                 body,
                 settings.DEFAULT_FROM_EMAIL,
-                [cust_email,settings.DEFAULT_FROM_EMAIL]
+                to_list
             )
         except Exception as e:
             logger.warn('Problem sending email: ' +  f' Error received | ERROR: {e}')
-        logger.warn('Sending Confirmation Email Completed.')
+        logger.warn('Sending Confirmation Email to ' + str(to_list) + ' Completed.')
 
     def handle_event(self, event):
         """

@@ -15,8 +15,12 @@ One bug I encountered during testing was with the Webhook. It kept returning a �
 * In copying the Webhook secret key I had accidental copies an extra blank space at the end of the key.
 Debugging these issues involved the Stripe testing facilities on their dashboard and instrumenting the Webhook code in my application.
 
+
 #### Case Sensitivity
 I also resolved several bugs due to mixed case in the reference to objects like Products, Plans etc.
+
+### Copy and Paste Errors
+When creating my unit tests I found numerous copy and paste errors that resulted from reusing code between Apps.
 
 #### Email
 When testing the contact form I found that the gmail SMTP server was blocking emails from what it regarded as a ‘third party app’. I had to disable some checking on the account for this to work correctly: (https://accounts.google.com/b/0/DisplayUnlockCaptcha)
@@ -89,18 +93,54 @@ source ../shell_scripts/environment.sh
 export USE_TEST_DATABASE="True"
 unset DATABASE_URL
 if [ $# -eq 1 ]; then
-    echo "Running in Verbose mode"   
+    echo "[$#]: Verbose mode selected"
     VERBOSE=1
 fi
 cd ..
-if [ "$VERBOSE"="1" ]; then
-    python3 manage.py test <list of applications> -v 2
+if [ "$VERBOSE" == "1" ]; then
+    echo "[$#]: Running in Verbose mode"
+    python3 manage.py test products plans workouts planworkouts about profiles -v 2
 else
-    python3 manage.py test <list of applications>  
+    echo "[$#]: Running in normal mode"
+    python3 manage.py test  products plans workouts planworkouts about profiles
 fi   
 ```
-The tests can run in silent or verbose mode.
+The tests can run in silent or verbose mode. Verbose mode proved essential in debugging failing tests.
+A shell script provides environment variables that are tailored to the unit tests.
 
+#### Structure of Test Files
+
+├── about
+│   └── tests
+│       ├── test_forms.py
+│       ├── test_models.py
+│       └── test_views.py
+├── plans
+│   └── tests
+│       ├── test_forms.py
+│       ├── test_models.py
+│       └── test_views.py
+├── planworkouts
+│   └── tests
+│       ├── test_models.py
+│       └── test_views.py
+├── products
+│   └── tests
+│       ├── test_forms.py
+│       ├── test_models.py
+│       └── test_views.py
+├── profiles
+│   └── tests
+│       ├── test_forms.py
+│       ├── test_models.py
+│       └── test_views.py
+├── shell_scripts
+│   └── test_environment.sh
+└── workouts
+    └── tests
+        ├── test_forms.py
+        ├── test_models.py
+        └── test_views.py
 
 
 

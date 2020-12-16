@@ -23,7 +23,7 @@
             "program": "${workspaceFolder}/manage.py",
             "args": [
                 "test",
-                "planworkouts",
+                "profiles",
             ],
             "django": true
         }

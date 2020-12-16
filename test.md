@@ -109,7 +109,7 @@ The tests can run in silent or verbose mode. Verbose mode proved essential in de
 A shell script provides environment variables that are tailored to the unit tests.
 
 #### Structure of Test Files
-
+```
 ├── about
 │   └── tests
 │       ├── test_forms.py
@@ -141,7 +141,7 @@ A shell script provides environment variables that are tailored to the unit test
         ├── test_forms.py
         ├── test_models.py
         └── test_views.py
-
+```
 
 
 

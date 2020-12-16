@@ -36,7 +36,7 @@ I created the Mock-Ups for the website by using Figma. There are Mock-ups for al
 ![Plans Page](/Readme/MockUps/FFLMochupPlansPage.jpg)
 
 # Features
-Customer Facing Pages: Fit For Life consists of a Homepage, products page, Individual Products Page, Plans Page, Plan Workout Page, Shopping Cart Page, Checkout Page and Profile page. The website is fully responsive.
+Customer Facing Pages: Fit For Life consists of a Homepage, products page, Individual Products Page, Plans Page, Plan Workout Page, Shopping Cart Page, Checkout Page, About Page and Profile page. The website is fully responsive.
 Admin Facing Pages: In addition to the user facing pages, an admin or superuser has access to a number of specific pages to assist administartion of the site. Access is also provided to the Django provided administration interface for lower level control of data.
 ## Site Elements
 ### NavBar
@@ -58,6 +58,9 @@ This page displays serveral cards. Each card is a detailed how-to guide on an in
 The workouts are created as seperate entries in a SQL table so that they can be assigned to one or more workout plans.
 ### Profile Page 
 Registered users will have the option to view their profile page. This page will display their details (name, username etc), allow them to save shipping address details and to view their previous order details. 
+
+### About Page
+Provides information about our site and a contact form.
 
 ### Stripe 
 #### Integrating Stripe

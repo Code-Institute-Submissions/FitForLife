@@ -218,5 +218,5 @@ It is often usefull to connect to the Heroku database from your local machine or
 # Testing
 In order to assure that the website performs efficiently and the features carry out the functions that they are created to, I conducted several tests which are outlined in a seperate [document](/test.md).
 
-# credits
-I would like to thank my father John O' Sullivan for his time, patience and abilibity to explain and help me understand certain parts of the project that I struggled with - his help was invaluable for the duration of this course. I would also like to thank Code Institute for their material on Boutique Ado which was a great example for this project. Finally, I would like to thank my mentor Precious - who as always, provided constructive feedback and pushed me to develop the project to the best of my ability. 
+# Credits
+I would like to thank my father John O' Sullivan for his time, patience and abilibity to explain and help me understand certain parts of the project that I struggled with - his help was invaluable for the duration of this course. I would also like to thank Code Institute for their material on Boutique Ado which was a great example for this project. Versions of previous projects available on Github and Stack Overflow were also very usefull in understanding some aspects of the assignment not covered in the Boutique Ado example. Finally, I would like to thank my mentor Precious - who as always, provided constructive feedback and pushed me to develop the project to the best of my ability. 

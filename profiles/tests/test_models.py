@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 
 class TestUserProfileModels(TestCase):
     def setUp(self):
-        """ Create a Secret user """
+        """ Create a user """
         user_model = get_user_model()
         user_model.objects.create_user(
             "Jade", "jade@gmail.com", "Secret"
@@ -15,4 +15,5 @@ class TestUserProfileModels(TestCase):
         """ creates a user profile and tests its str is valid """
         self.client.login(username="Jade", password="Secret")
         temp_profile = UserProfile.objects.get(user__username="Jade")
+        #Compare the string returned is what we set
         self.assertEqual(temp_profile.__str__(), "Jade")

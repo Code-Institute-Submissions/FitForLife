@@ -34,7 +34,7 @@ class TestProductViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(context, "price_asc")
         # filter by query
-        response = self.client.get("/products/?q=car")
+        response = self.client.get("/products/?q=bar")
         self.assertEqual(response.status_code, 200)
         # filter by query no input
         response = self.client.get("/products/?q", follow=True)
@@ -43,12 +43,6 @@ class TestProductViews(TestCase):
         self.assertEqual(message.tags, "error")
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "products/products.html")
-
-    # return 404 if url incorrect
-    def test_get_all_products_404(self):
-        response = self.client.get("/products/doesnotexist")
-        self.assertEqual(response.status_code, 404)
-        self.assertTemplateUsed(response, "404.html")
 
     # get Product details page response good
     def test_get_Product_detail_page(self):
@@ -61,6 +55,14 @@ class TestProductViews(TestCase):
         response = self.client.get(f"/products/{temp_product.id}/")
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "products/product_detail.html")
+
+    # return 404 if url incorrect
+    def test_get_all_products_404(self):
+        response = self.client.get("/products/doesnotexist")
+        self.assertEqual(response.status_code, 404)
+        self.assertTemplateUsed(response, "404.html")
+
+
 
 
 

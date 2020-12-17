@@ -3,7 +3,8 @@ from profiles.forms import UserProfileForm
 
 
 class TestUserProfileForms(TestCase):
-    def test_profile_fields_in_meta(self):
+
+    def test_excluded_profile_fields_in_meta(self):
         """ check if correct fields are in Metaclass """
         form = UserProfileForm()
         self.assertEqual(form.Meta.exclude, ("user","is_member","is_life_member"))
@@ -11,11 +12,13 @@ class TestUserProfileForms(TestCase):
     def test_profile_valid_form(self):
         form = UserProfileForm(
             {
-                "default_phone_number": "123245",
-                "default_street_address1": "23 tehioadf",
-                "default_town_or_city": "hometown",
-                "default_postcode": "123jdf",
+                "default_phone_number": "08688776632",
+                "default_street_address1": "Street Address 1",
+		"default_street_address2": "Street Address 2",
+                "default_town_or_city": "Limerick",
+                "default_postcode": "VA25678",
                 "default_country": "US",
+		"default_county" : "Limerick",
                 "is_member": False,    
                 "is_life_member": False, 
             }

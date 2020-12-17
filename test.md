@@ -1,11 +1,11 @@
 # Fit For Life - Testing Document
 
 ## Testing and Debugging
-* Python: I used the built-in Python debugger in Visual Studio to debug my Python. I set breakpoints to see where certain functions/code was failing. This was a really useful tool throughout the development of this project as it supports debug pf both Django template code and the python code. 
+* Python: I used the built-in Python debugger in Visual Studio to debug my Python along with [PEP8](https://www.python.org/dev/peps/pep-0008/). I set breakpoints to see where certain functions/code was failing. This was a really useful tool throughout the development of this project as it supports debug pf both Django template code and the python code. 
 * I used [ExtendsClass.com](https://extendsclass.com/) to validate my python code. No syntax errors were detected.
 * HTML & CSS: In order to validate my HTML & CSS I availed of [W3C Validator](https://validator.w3.org/) which returned no errors.
-* Javascript: I used [Esprima](https://esprima.org/) to validate my javascript and no errors were returned. I used the console on chrome to help debug my Javascript code.
-* Responsive: To test if the website was responsive I used the following [website](http://ami.responsivedesign.is/) - the website was responsive across all screen sizes. 
+* Javascript: I used [JShint](https://jshint.com/) to validate my javascript and no errors were returned. I used the console on chrome to help debug my Javascript code.
+* Responsive: To test if the website was responsive I used the following [website](http://ami.responsivedesign.is/) - the website was responsive across all screen sizes. Full responsiveness testing can be found [here](diagrams/TestTable.jpg)
 * Python Logger: I also used the python logger app to help debug my python code.
 
 ### Bugs encountered during Testing

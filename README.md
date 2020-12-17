@@ -25,7 +25,7 @@ The site was designed with three users in mind: admin, registered user and non-r
 * As a non-registered user I want to be able to search for products.
 
 ## Mock-Ups 
-I created the Mock-Ups for the website by using Figma. There are Mock-ups for all devices in the following [folder]. Please see the main pages below.
+I created the Mock-Ups for the website by using Figma. There are Mock-ups for all devices in the following [folder](Readme/MockUps). Please see the main pages below.
 #### Products page
 ![Products Page](/Readme/MockUps/FFLMocupAllProductsPage.jpg) 
 #### Individual Product page
@@ -38,7 +38,7 @@ I created the Mock-Ups for the website by using Figma. There are Mock-ups for al
 # Features
 Customer Facing Pages: Fit For Life consists of a Homepage, products page, Individual Products Page, Plans Page, Plan Workout Page, Shopping Cart Page, Checkout Page, About Page and Profile page. The website is fully responsive.
 Admin Facing Pages: In addition to the user facing pages, an admin or superuser has access to a number of specific pages to assist administartion of the site. Access is also provided to the Django provided administration interface for lower level control of data.
-## Site Elements
+## Exisiting Features
 ### NavBar
 This responsive  feature allows users to move from page to page. When a user is logged in it displays an option to visit a page called " MyProfile". There is also a link to "Logout" if a user is logged in. In the case that no user is logged in the NavBar simply displays a "Login/Register" Tab. For Mobile and Tablet devices -  a hamburger menu on the top-left expands a menu with links to all of the main pages. The navbar stays fixed at the top of each page for easy navigation at all times.
 ### Forms
@@ -58,10 +58,8 @@ This page displays serveral cards. Each card is a detailed how-to guide on an in
 The workouts are created as seperate entries in a SQL table so that they can be assigned to one or more workout plans.
 ### Profile Page 
 Registered users will have the option to view their profile page. This page will display their details (name, username etc), allow them to save shipping address details and to view their previous order details. 
-
 ### About Page
 Provides information about our site and a contact form.
-
 ### Stripe 
 #### Integrating Stripe
 * [Stripe Documentation](https://stripe.com/docs/payments/accept-a-payment?integration=elements)
@@ -90,6 +88,9 @@ Strip provide an interface for both testing the weebhook and checking the status
 #### Testing a Web Hook Endpoint using CLI
 For more complex problems with webhooks it is possible to test locally using the Srtipe CLI
 * [Stripe Documentation](https://stripe.com/docs/webhooks/test)
+
+## Features left to implement
+In the future, it would be nice to add a forum page where FFL members can communicate with eachother and share tips/usual information. 
 
 # Application Structure
 * - model, data associated with the page
@@ -121,7 +122,7 @@ For more complex problems with webhooks it is possible to test locally using the
 
 
 # Database Design
-## Key relationships
+## E R Diagram
 ![Main Database Design](diagrams/maindiagramcompact.png)
 
 ## Main Tables
@@ -216,3 +217,6 @@ It is often usefull to connect to the Heroku database from your local machine or
 
 # Testing
 In order to assure that the website performs efficiently and the features carry out the functions that they are created to, I conducted several tests which are outlined in a seperate [document](/test.md).
+
+# credits
+I would like to thank my father John O' Sullivan for his time, patience and abilibity to explain and help me understand certain parts of the project that I struggled with - his help was invaluable for the duration of this course. I would also like to thank Code Institute for their material on Boutique Ado which was a great example for this project. Finally, I would like to thank my mentor Precious - who as always, provided constructive feedback and pushed me to develop the project to the best of my ability. 
